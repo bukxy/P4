@@ -1,10 +1,6 @@
 <h1>Post view</h1>
 
-<?php
-
-$post = App\App::getDb()->prepare('SELECT * FROM posts WHERE post_id = ?', [$_GET['id']], 'App\models\PostManager', true);
-
-?>
+<?php $post = App\models\PostManager::getPost(); ?>
 
 <h2><?= $post->getTitle(); ?></h2>
 
@@ -28,13 +24,15 @@ $post = App\App::getDb()->prepare('SELECT * FROM posts WHERE post_id = ?', [$_GE
 
     </form>
 
-    <?php $comment = App\App::getDb()->prepare('SELECT * FROM comments WHERE comment_id_post = ?', [$_GET['id']], 'App\models\Comment'); ?>
-
-    <div>
-    <h2><?= $comment->getCommentAuthor(); ?></h2>
-
-    <p><?= $comment->getComment(); ?></p>
-    <p><?= $comment->getDate(); ?></p>
-    </div>
-
 </div>
+
+
+<?php foreach (App\models\CommentManager::getComments() as $comment): ?>
+
+<?= var_dump($comment->getComments()); ?>
+
+<p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em></p>
+
+<p><?= $comment->getComment(); ?></p>
+
+<?php endforeach; ?>

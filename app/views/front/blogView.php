@@ -9,3 +9,7 @@
 <p><?= $post->getExtrait(); ?></p>
 
 <?php endforeach; ?>
+
+<p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em></p>
+
+<p><?= $comment->getComment(); ?></p>

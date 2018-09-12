@@ -1,0 +1,56 @@
+<?php
+
+namespace App\models;
+
+use App\App;
+
+class CommentManager {
+
+    private $_comment_id_post, $_comment_author, $_comment_date, $_comment;
+
+    public function add(Comment $comment) {
+        $q = App::getDb()->prepare('INSERT INTO comments(comment_id_post, comment_author, comment_date, comment) VALUES(:comment_id_post, :comment_author, :comment_date, :comment)');
+
+        $q->bindValue(':comment_id_post', $comment->commentIdPost());
+        $q->bindValue(':comment_author', $comment->commentAuthor());
+        $q->bindValue(':comment_date', $comment->commentDate());
+        $q->bindValue(':comment', $comment->commentContent());
+    
+        $q->execute();
+    }
+
+    public function get($id) {
+        $id = (int) $id;
+
+        $q = App::getDb()->query('SELECT comment_id, comment_id_post, comment_author, comment_date, comment FROM comments WHERE id = '.$id);
+        $datas = $q->fetch(PDO::FECTH_ASSOC);
+
+        return new Comment($datas);
+    }
+
+    public function update(Comment $comment) { 
+        $q = App::getDb()->prepare('UPDATE comments SET commentIdPost = :comment_id_post, commentAuthor = :comment_author, commentDate = :comment_date, commentContent = :comment WHERE id = :id');
+
+        $q->bindValue(':comment_id_post', $comment->commentIdPost());
+        $q->bindValue(':comment_author', $comment->commentAuthor());
+        $q->bindValue(':comment_date', $comment->commentDate());
+        $q->bindValue(':comment', $comment->commentContent());
+        $q->bindValue(':id', $comment->id(), PDO::PARAM_INT);
+    
+        $q->execute();    
+    }
+
+    public function delete(Comment $comment) {
+        $q = App::getDb()->exec('DELETE FROM personnages WHERE id = '.$perso->id());   
+    }
+
+    public function getList(){
+        $comments = [];
+        $q = App::getDb()->query('SELECT comment_id, comment_id_post, comment_author, comment_date, comment FROM comments ORDER BY comment_date DESC');
+
+        while ($datas = $q-> fetch(PDO::FETCH_ASSOC)){
+            $comments[] = new Comment($datas);
+        }
+    }
+
+}
