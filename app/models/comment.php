@@ -25,19 +25,19 @@ class Comment {
         }
     }
 
-    public function id() {
+    public function getId() {
         return $this->_comment_id;
     }
-    public function idPost() {
+    public function getIdPost() {
         return $this->_comment_id_post;
     }
-    public function author() {
+    public function getAuthor() {
         return $this->_comment_author;
     }
-    public function date() {
+    public function getDate() {
         return $this->_comment_date;
     }
-    public function content() {
+    public function getContent() {
         return $this->_comment;
     }
 

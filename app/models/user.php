@@ -23,13 +23,13 @@ class User {
         }
     }
 
-    public function id() {
+    public function getId() {
         return $this->_id;
     }
-    public function pseudo() {
+    public function getPseudo() {
         return $this->_pseudo;
     }
-    public function email() {
+    public function getEmail() {
         return $this->_email;
     }
 

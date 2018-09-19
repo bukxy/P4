@@ -1,6 +1,7 @@
 <h1>Blog</h1>
 
-<?php
-$post = new App\models\PostManager;
-$post->getList();
-?>
+<?php foreach ($posts as $post): ?>
+
+<h1> <?= htmlspecialchars($post->$allPosts) ?>
+
+<?php endforeach; ?>

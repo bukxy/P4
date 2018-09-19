@@ -1,7 +1,9 @@
 <?php
 
-require('../app/Autoloader.php');
-App\Autoloader::register();
+require('../app/models/Autoloader.php');
+App\models\Autoloader::register();
+
+require('controller.php');
 
 if(isset($_GET['p'])) {
     $p = $_GET['p'];

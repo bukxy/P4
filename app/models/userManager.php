@@ -8,7 +8,7 @@ class UserManager {
 
     private $_id, $_pseudo, $_email;
 
-    public function add(User $user) {
+    public function addUser(User $user) {
         $q = App::getDb()->prepare('INSERT INTO users(id, pseudo, email) VALUES(:id, :pseudo, :email)');
 
         $q->bindValue(':id', $user->userId(), PDO::PARAM_INT);
@@ -18,7 +18,7 @@ class UserManager {
         $q->execute();
     }
 
-    public function get($id) {
+    public function getOneUser($id) {
         $id = (int) $id;
 
         $q = App::getDb()->query('SELECT id, pseudo, mail FROM users WHERE id = '.$id);
@@ -27,7 +27,7 @@ class UserManager {
         return new User($datas);
     }
 
-    public function update(User $user) { 
+    public function updateUser(User $user) { 
         $q = App::getDb()->prepare('UPDATE users SET userId = :id, userPseudo = :pseudo, userEmail = :email WHERE id = :id');
 
         $q->bindValue(':id', $user->userId(), PDO::PARAM_INT);
@@ -37,11 +37,11 @@ class UserManager {
         $q->execute();    
     }
 
-    public function delete(User $user) {
+    public function deleteuser(User $user) {
         $q = App::getDb()->exec('DELETE FROM users WHERE id = '.$user->id());   
     }
 
-    public function getList(){
+    public function getAllUsers(){
         $users = [];
         $q = App::getDb()->query('SELECT id, pseudo, email FROM users');
 
