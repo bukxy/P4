@@ -7,10 +7,13 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="index.php">Accueil<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.php?p=home">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../app/views/front/blogView.php">Blog</a>
+            <a class="nav-link" href="index.php?p=blog">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.php?p=connexion">Connexion</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="chapitres" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chapitres</a>

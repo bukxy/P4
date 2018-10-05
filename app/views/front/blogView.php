@@ -1,15 +1,26 @@
-<h1>Blog</h1>
 
-<?php foreach (\App\models\PostManager::getLast() as $post): ?>
+<?php $title = 'Mon Blog'; ?>
 
-<h2>
-    <a href="<?= $post->getUrl() ?>"><?= $post->getTitle(); ?></a>
-</h2>
+<h1>Derniers posts :</h1>
+<?php ob_start(); ?>
 
-<p><?= $post->getExtrait(); ?></p>
+<?php foreach ($posts as $post): ?>
+
+    <div>
+        <h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
+        <p>
+            <em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?>
+        </p>
+        
+        <p>
+            <?= nl2br(htmlspecialchars($post->getPost()))?>
+            <br />
+            <em><a href="index.php?p=post&amp;id=<?= $post->getId() ?>">Voir la suite</a></em>
+        </p>
+    </div>
 
 <?php endforeach; ?>
 
-<p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em></p>
+<?php $content = ob_get_clean(); ?>
 
-<p><?= $comment->getComment(); ?></p>
+<?php require('../app/views/front/templates/default.php');?>

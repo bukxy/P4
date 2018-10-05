@@ -4,11 +4,11 @@ namespace App\models;
 
 class Comment {
 
-    private $_comment_id;
-    private $_comment_id_comment;
-    private $_comment_author;
-    private $_comment_date;
-    private $_comment;
+    private $comment_id;
+    private $comment_id_post;
+    private $comment_author;
+    private $comment_date;
+    private $comment;
 
     public function __construct(array $datas)
     {
@@ -26,34 +26,42 @@ class Comment {
     }
 
     public function getId() {
-        return $this->_comment_id;
+        return $this->comment_id;
     }
     public function getIdPost() {
-        return $this->_comment_id_post;
+        return $this->comment_id_post;
     }
     public function getAuthor() {
-        return $this->_comment_author;
+        return $this->comment_author;
     }
     public function getDate() {
-        return $this->_comment_date;
+        return $this->comment_date;
     }
-    public function getContent() {
-        return $this->_comment;
+    public function getComment() {
+        return $this->comment;
     }
 
-    public function setId($id) {
-        $this->_comment_id = (int) $id;
+    public function setComment_id($id) {
+        $id = (int) $id;
+
+        if ($id >0) {
+           $this->comment_id = $id;
+        }
     }
-    public function setIdPost($id_post) {
-        $this->_comment_id_post = (int) $id_post;
+    public function setComment_id_post($id_post) {
+        $id_post = (int) $id_post;
+
+        if ($id_post >0) {
+           $this->comment_id_post = $id_post; 
+        }
     }
-    public function setAuthor($author) {
-        $this->_comment_author = $author;
+    public function setComment_author($author) {
+        $this->comment_author = $author;
     }
-    public function setDate($date) {
-        $this->_comment_date = $date;
+    public function setComment_date($date) {
+        $this->comment_date = $date;
     }
-    public function setContent($content) {
-        $this->_comment =  $content;
+    public function setComment($comment) {
+        $this->comment =  $comment;
     }
 }

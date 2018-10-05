@@ -6,12 +6,11 @@ use \PDO;
 
 class PostManager {
 
-    private $_post_title, $_post_author, $_post_date, $_post;
-
     public function addPost(Post $post) {
-        $q = Database::getPDO()->prepare('INSERT INTO posts(post_title, post_author, post_date, post) VALUES(:post_title, :post_author, :post_date, :post)');
+        $q = Database::getPDO()->prepare('INSERT INTO posts(post_title, post_author, post_date, post) 
+        VALUES(:post_title, :post_author, :post_date, :post)');
 
-        $q->bindValue(':post_title', $post->title());
+        $q->bindValue(':post_title', $post->getTitle());
         $q->bindValue(':post_author', $post->author());
         $q->bindValue(':post_date', $post->date());
         $q->bindValue(':post', $post->post());
@@ -19,38 +18,51 @@ class PostManager {
         $q->execute();
     }
 
-    public function getOnePost($id) {
-        $id = (int) $id;
+    public function getOnePost($postId) {
 
-        $q = Database::getPDO()->query('SELECT post_id, post_title, post_author, post_date, post FROM posts WHERE id = '.$id);
-        $datas = $q->fetch(PDO::FECTH_ASSOC);
+        $post = [];
 
-        return new Post($datas);
+        $q = Database::getPDO()->prepare('SELECT post_id, post_title, post_author, post_date, post 
+        FROM posts 
+        WHERE post_id = ?');
+
+        $q->execute(array($_GET['id']));
+
+        while ($datas = $q->fetch()){
+            $post[] = new Post($datas);
+        }
+
+        return $post;
     }
 
     public function updatePost(Post $post) { 
-        $q = Database::getPDO()->prepare('UPDATE posts SET postTitle = :post_title, postAuthor = :post_author, postDate = :post_date, postContent = :post WHERE id = :id');
+        $q = Database::getPDO()->prepare('UPDATE posts 
+        SET postTitle = :post_title, postAuthor = :post_author, postDate = :post_date, postContent = :post 
+        WHERE id = :id');
 
         $q->bindValue(':post_title', $post->title());
         $q->bindValue(':post_author', $post->author());
-        $q->bindValue(':post_date', $post->pdate());
+        $q->bindValue(':post_date', $post->date());
         $q->bindValue(':post', $post->post());
         $q->bindValue(':id', $post->id(), PDO::PARAM_INT);
     
         $q->execute();    
     }
 
-    public function deletePost(Post $post) {
-        $q = Database::getPDO()->exec('DELETE FROM personnages WHERE id = '.$perso->id());   
+    public function deletePost($id) {
+        $q = Database::getPDO()->exec('DELETE FROM posts 
+        WHERE id = '.$post->id());   
     }
 
-    public function getAllPosts(){
+    public function getAllPosts() {
         $posts = [];
-        $q =  Database::getPDO()->query('SELECT post_id, post_title, post_author, post_date, post FROM posts ORDER BY post_date DESC');
+        $q = Database::getPDO()->query("SELECT * FROM posts ORDER BY post_date DESC");
 
-        while ($datas = $q-> fetch(PDO::FETCH_ASSOC)){
+        while ($datas = $q->fetch()){
             $posts[] = new Post($datas);
         }
+
+        return $posts;
     }
 
 }

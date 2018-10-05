@@ -4,9 +4,9 @@ namespace App\models;
 
 class User {
 
-    private $_id;
-    private $_pseudo;
-    private $_email;
+    private $id;
+    private $pseudo;
+    private $email;
 
     public function __construct(array $datas)
     {
@@ -24,22 +24,22 @@ class User {
     }
 
     public function getId() {
-        return $this->_id;
+        return $this->id;
     }
     public function getPseudo() {
-        return $this->_pseudo;
+        return $this->pseudo;
     }
     public function getEmail() {
-        return $this->_email;
+        return $this->email;
     }
 
     public function setId($id) {
-        $this->_id = (int) $id;
+        $this->id = (int) $id;
     }
     public function setPseudo($pseudo) {
-        $this->_pseudo = $pseudo;
+        $this->pseudo = $pseudo;
     }
     public function setEmail($email) {
-        $this->_email = $email;
+        $this->email = $email;
     }
 }

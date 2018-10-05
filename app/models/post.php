@@ -4,11 +4,11 @@ namespace App\models;
 
 class Post {
 
-    private $_post_id;
-    private $_post_title;
-    private $_post_author;
-    private $_post_date;
-    private $_post;
+    private $post_id;
+    private $post_author;
+    private $post_date;
+    private $post_title;
+    private $post;
 
     public function __construct(array $datas)
     {
@@ -26,46 +26,47 @@ class Post {
     }
 
     public function getId() {
-        return $this->_post_id;
+        return $this->post_id;
     }
     public function getTitle() {
-        return $this->_post_title;
+        return $this->post_title;
     }
     public function getAuthor() {
-        return $this->_post_author;
+        return $this->post_author;
     }
     public function getDate() {
-        return $this->_post_date;
+        return $this->post_date;
     }
     public function getPost() {
-        return $this->_post;
+        return $this->post;
+        
     }
 
-    public function setId($id) {
+    public function setPost_id($id) {
         $id = (int) $id;
 
         if ($id >0) {
-           $this->_post_id = $id; 
+           $this->post_id = $id; 
         }
     }
-    public function setTitle($title) {
+    public function setPost_title($title) {
 
         if (is_string($title)) {
-            $this->_post_title = $title;
+            $this->post_title = $title;
         }  
     }
-    public function setAuthor($author) {
+    public function setPost_author($author) {
 
         if (is_string($author)) {
-            $this->_post_author = $author;
+            $this->post_author = $author;
         }
     }
-    public function setDate($date) {
-        $this->_post_date = $date;
+    public function setPost_date($date) {
+        $this->post_date = $date;
     }
     public function setPost($post) {
         if (is_string($post)) {
-            $this->_post =  $post;
+            $this->post = $post;
         }
     }
 }

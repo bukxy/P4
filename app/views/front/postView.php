@@ -1,38 +1,54 @@
-<h1>Post view</h1>
 
-<?php $post = App\models\PostManager::getPost(); ?>
+<?php $title = 'Mon Blog'; ?>
 
-<h2><?= $post->getTitle(); ?></h2>
+    <h1>Post view</h1>
+    <p><a href="index.php?p=blog">Retour à la liste des billets</a></p>
 
-<p><?= $post->getContent(); ?></p>
+<?php ob_start(); ?>
 
-<div class="comments">
+    <?php foreach ($showOnePost as $post): ?>
 
-    <div>
-        <h3>Commentaires</h3>
+        <div>
+            <h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
+            <p>
+                <em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?>
+            </p>
+            
+            <p>
+                <?= nl2br(htmlspecialchars($post->getPost()))?>
+            </p>
+        </div>
+
+    <?php endforeach; ?>
+
+    <div class="comments">
+
+        <div>
+            <h3>Commentaires</h3>
+        </div>
+
+        <form action="../app/models/comment.php" method="POST">
+
+            <p><label for="pseudo">Pseudo : </label>
+            <input type="text" name="pseudo" /></p>
+
+            <p><label for="comment">Commentaire : </label>
+            <input type="text" name="comment"></p>
+
+            <input type="submit" name="sendComment" />
+
+        </form>
+
     </div>
 
-    <form action="../app/models/comment.php" method="POST">
+    <?php foreach ($comments as $comment): ?>
 
-        <p><label for="pseudo">Pseudo : </label>
-        <input type="text" name="pseudo" /></p>
+    <p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em></p>
 
-        <p><label for="comment">Commentaire : </label>
-        <input type="text" name="comment"></p>
+    <p><?= $comment->getComment(); ?></p>
 
-        <input type="submit" name="sendComment" />
+    <?php endforeach; ?>
 
-    </form>
+<?php $content = ob_get_clean(); ?>
 
-</div>
-
-
-<?php foreach (App\models\CommentManager::getComments() as $comment): ?>
-
-<?= var_dump($comment->getComments()); ?>
-
-<p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em></p>
-
-<p><?= $comment->getComment(); ?></p>
-
-<?php endforeach; ?>
+<?php require('../app/views/front/templates/default.php');?>

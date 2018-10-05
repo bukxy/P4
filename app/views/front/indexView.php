@@ -1,7 +1,4 @@
-<h1>Blog</h1>
+<?php $title = 'Page index'; ?>
 
-<?php foreach ($posts as $post): ?>
-
-<h1> <?= htmlspecialchars($post->$allPosts) ?>
-
-<?php endforeach; ?>
+<h1>Page index</h1>
+<?php require('../app/views/front/templates/default.php');?>

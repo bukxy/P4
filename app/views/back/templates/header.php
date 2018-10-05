@@ -5,11 +5,11 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
+    <title>Connexion</title>
+
     <!-- Bootstrap core CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="../public/css/adminConnexion.css" rel="stylesheet">
-    
-    <title><?= $title ?></title>
-</head>
+  </head>
