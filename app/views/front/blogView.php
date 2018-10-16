@@ -13,8 +13,9 @@
         </p>
         
         <p>
-            <?= nl2br(htmlspecialchars($post->getPost()))?>
+            <?= substr(nl2br(htmlspecialchars($post->getPost())), 0, 200); ?>
             <br />
+
             <em><a href="index.php?p=post&amp;id=<?= $post->getId() ?>">Voir la suite</a></em>
         </p>
     </div>

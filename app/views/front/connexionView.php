@@ -1,44 +1,28 @@
-<!DOCTYPE html>
-<html lang="fr">
 
-    <?php include("../app/views/front/templates/header.php"); ?>
-    
-    <body  style="padding-top: 100px;">
+<?php $title = 'Connexion'; ?>
 
-        <div >
+<?php ob_start(); ?>
 
-            <?php include("../app/views/front/templates/menu.php"); ?>
+    <form action="index.php?p=checkUserConnexion" method="POST">
 
-            <form action="../app/models/connexion.php">
+        <div class="container">
+            <label for="email"><b>Username</b></label>
+            <input type="text" placeholder="Votre email" name="email" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Votre mot de passe" name="password" required>
                 
-                <h2>Login Form</h2>
-
-                <div class="imgcontainer">
-                    <img src="img_avatar2.png" alt="Avatar" class="avatar">
-                </div>
-
-                <div class="container">
-                    <label for="uname"><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" name="uname" required>
-
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" required>
-                        
-                    <button type="submit">Login</button>
-                    <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
-                </div>
-
-                <div class="container" style="background-color:#f1f1f1">
-                    <button type="button" class="cancelbtn">Cancel</button>
-                    <span class="psw">Forgot <a href="#">password?</a></span>
-                </div>
-
-            </form>
+            <button type="submit">Connexion</button>
 
         </div>
-    
-    </body>
 
-</html>
+        <div class="container" style="background-color:#f1f1f1">
+            <button type="button" class="cancelbtn">Cancel</button>
+            <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+
+    </form>
+
+    <?php $content = ob_get_clean(); ?>
+
+<?php require('../app/views/front/templates/default.php');?>

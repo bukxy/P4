@@ -15,13 +15,8 @@
           <li class="nav-item">
             <a class="nav-link" href="index.php?p=connexion">Connexion</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="chapitres" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chapitres</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Chapitre 1</a>
-              <a class="dropdown-item" href="#">Chapitre 2</a>
-              <a class="dropdown-item" href="#">Chapitre 3</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="index.php?p=admin">Admin</a>
           </li>
         </ul>
     </div>

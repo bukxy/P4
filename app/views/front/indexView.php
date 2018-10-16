@@ -1,4 +1,9 @@
 <?php $title = 'Page index'; ?>
 
-<h1>Page index</h1>
+<?php ob_start(); ?>
+
+    <h1>Page index</h1>
+
+<?php $content = ob_get_clean(); ?>
+
 <?php require('../app/views/front/templates/default.php');?>

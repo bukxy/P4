@@ -48,6 +48,24 @@ class UserManager {
         while ($datas = $q-> fetch(PDO::FETCH_ASSOC)){
             $users[] = new user($datas);
         }
+
+        return $users;
+    }
+
+    public function checkUserConnexion($email) {
+
+        $user = [];
+
+        $q = App::getDb()->prepare('SELECT id, users.password FROM users 
+        WHERE email = ?');
+
+        $q = execute(array($email));
+
+        while ($datas = $q->fetch()){
+            $user[] = new User($datas);
+        }
+
+        return $user;
     }
 
 }

@@ -1,3 +1,15 @@
-<footer>
-    <p>&copy; Company 2017-2018</p>
-</footer>
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+<script src='https://devpreview.tiny.cloud/demo/tinymce.min.js'></script>
+
+<script>
+
+    // TinyMCE
+    tinymce.init({
+        selector: '#tinyMCE'
+    });
+
+    // Icons
+    feather.replace()
+</script>

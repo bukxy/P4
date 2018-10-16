@@ -1,22 +1,30 @@
-<!DOCTYPE html>
-<html lang="fr">
 
-    <?php include("header.php"); ?>
+<!doctype html>
+<html lang="en">
 
-    <body  style="padding-top: 100px;">
+        <?php include("header.php"); ?>
 
-        <div id="site">
+  <body>
 
-            <?php include("menu.php"); ?>
-            
+        <?php include("topMenu.php"); ?>
+
+    <div class="container-fluid">
+      <div class="row">
+
+      <?php include("leftMenu.php"); ?>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2"><?= $titleCat ?></h1>
+          </div>
+
             <?= $content ?>
 
-        </div>
-        
-        <?php include("footer.php"); ?>
+        </main>
+      </div>
+    </div>
+  </body>
 
-        <script src="js/jquery.js"></script>
+    <?php include("footer.php"); ?>
 
-    </body>
-    
 </html>

@@ -11,5 +11,5 @@
     <!-- Custom styles for this template -->
     <link href="../public/css/adminConnexion.css" rel="stylesheet">
     
-    <title><?= $title ?></title>
+    <title>Jean Forteroche | <?= $title ?></title>
 </head>

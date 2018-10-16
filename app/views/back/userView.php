@@ -1,9 +1,8 @@
 <?php ob_start(); ?>
 
-<?php $title = 'Liste des articles'; ?>
-<?php $titleCat = 'Liste des articles'; ?>
+<?php $title = 'Mon compte'; ?>
+<?php $titleCat = 'Mon compte'; ?>
 
-<a href="index.php?p=newPost"><input name="ButtonAddPost" value="Nouvel article" type="button" /></a>
 
 	<?php foreach ($posts as $post): ?>
 

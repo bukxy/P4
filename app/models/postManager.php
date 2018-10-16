@@ -6,16 +6,12 @@ use \PDO;
 
 class PostManager {
 
-    public function addPost(Post $post) {
+    public function addPost($title, $author, $post) {
         $q = Database::getPDO()->prepare('INSERT INTO posts(post_title, post_author, post_date, post) 
-        VALUES(:post_title, :post_author, :post_date, :post)');
+        VALUES(?, ?, NOW(), ?)');
 
-        $q->bindValue(':post_title', $post->getTitle());
-        $q->bindValue(':post_author', $post->author());
-        $q->bindValue(':post_date', $post->date());
-        $q->bindValue(':post', $post->post());
-    
-        $q->execute();
+        $q->execute(array($title, $author, $post));
+
     }
 
     public function getOnePost($postId) {
@@ -26,7 +22,7 @@ class PostManager {
         FROM posts 
         WHERE post_id = ?');
 
-        $q->execute(array($_GET['id']));
+        $q->execute(array($postId));
 
         while ($datas = $q->fetch()){
             $post[] = new Post($datas);
@@ -37,21 +33,23 @@ class PostManager {
 
     public function updatePost(Post $post) { 
         $q = Database::getPDO()->prepare('UPDATE posts 
-        SET postTitle = :post_title, postAuthor = :post_author, postDate = :post_date, postContent = :post 
+        SET post_title = :post_title, post_author = :post_author, post_date = :post_date, post = :post 
         WHERE id = :id');
 
-        $q->bindValue(':post_title', $post->title());
-        $q->bindValue(':post_author', $post->author());
-        $q->bindValue(':post_date', $post->date());
-        $q->bindValue(':post', $post->post());
-        $q->bindValue(':id', $post->id(), PDO::PARAM_INT);
+        $q->bindValue(':post_title', $post->getTitle());
+        $q->bindValue(':post_author', $post->getAuthor());
+        $q->bindValue(':post_date', $post->getDate());
+        $q->bindValue(':post', $post->getPost());
+        $q->bindValue(':id', $post->getId());
     
-        $q->execute();    
+        $q->execute();
     }
 
-    public function deletePost($id) {
-        $q = Database::getPDO()->exec('DELETE FROM posts 
-        WHERE id = '.$post->id());   
+    public function deletePost($postId) {
+        $q = Database::getPDO()->prepare('DELETE FROM posts 
+        WHERE post_id = ?');
+
+        $q->execute(array($postId));
     }
 
     public function getAllPosts() {

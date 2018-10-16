@@ -4,6 +4,7 @@ namespace App\controllers;
 
 use App\models\PostManager;
 use App\models\CommentManager;
+use App\models\UserManager;
 
 require('../app/models/postManager.php');
 require('../app/models/commentManager.php');
@@ -36,5 +37,42 @@ class FrontController {
         $comments = $commentManager->getCommentsByPostId($_GET['id']);
 
         require('../app/views/front/postView.php');
+    }
+
+    public static function newComment($postId, $author, $comment) {
+
+        $commentManager = new CommentManager();
+        $addComment = $commentManager->addComment($postId, $author, $comment);
+
+        if ($addComment === false) {
+            die('Impossible d\'ajouter le commentaire !');
+        } else {
+            header('Location: index.php?p=post&id=' . $postId);
+        }
+
+    }
+
+    public static function checkUserConnexion() {
+
+        $userManager = new UserManager();
+        $user = $userManager->checkUserConnexion($email);
+
+        $isPasswordCorrect = password_verify($_POST['pass'], $resultat['pass']);
+
+        if (!$user) {
+            die('Mauvais identifiant ou mot de passe !');
+        }
+        else {
+            if ($isPasswordCorrect) {
+                session_start();
+                $_SESSION['id'] = $user['id'];
+                $_SESSION['email'] = $email;
+                echo 'Vous êtes connecté !';
+            }
+            else {
+                echo 'Mauvais identifiant ou mot de passe !';
+            }
+        }
+            
     }
 }

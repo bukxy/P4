@@ -7,6 +7,7 @@ class User {
     private $id;
     private $pseudo;
     private $email;
+    private $password;
 
     public function __construct(array $datas)
     {
@@ -32,6 +33,9 @@ class User {
     public function getEmail() {
         return $this->email;
     }
+    public function getPassword() {
+        return $this->password;
+    }
 
     public function setId($id) {
         $this->id = (int) $id;
@@ -40,6 +44,11 @@ class User {
         $this->pseudo = $pseudo;
     }
     public function setEmail($email) {
-        $this->email = $email;
+        if (filter_var($password , FILTER_VALIDATE_EMAIL)) {
+            $this->email = $email;
+        }
+    }
+    public function setPassword($password) {
+        $this->password = $password;
     }
 }

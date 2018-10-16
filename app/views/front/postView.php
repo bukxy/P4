@@ -1,4 +1,3 @@
-
 <?php $title = 'Mon Blog'; ?>
 
     <h1>Post view</h1>
@@ -19,27 +18,29 @@
             </p>
         </div>
 
-    <?php endforeach; ?>
+        <div class="comments">
 
-    <div class="comments">
+            <div>
+                <h3>Commentaires</h3>
+            </div>
+            <form action="index.php?p=addComment&amp;id=<?= $post->getId(); ?>" method="POST">
 
-        <div>
-            <h3>Commentaires</h3>
+                <div>
+                    <label for="author">Auteur :</label><br />
+                    <input type="text" id="author" name="author" />
+                </div>
+                <div>
+                    <label for="comment">Commentaire :</label><br />
+                    <textarea id="comment" name="comment"></textarea>
+                </div>
+
+                <input type="submit" value="Poster le commentaire" />
+
+            </form>
+
         </div>
 
-        <form action="../app/models/comment.php" method="POST">
-
-            <p><label for="pseudo">Pseudo : </label>
-            <input type="text" name="pseudo" /></p>
-
-            <p><label for="comment">Commentaire : </label>
-            <input type="text" name="comment"></p>
-
-            <input type="submit" name="sendComment" />
-
-        </form>
-
-    </div>
+    <?php endforeach; ?>
 
     <?php foreach ($comments as $comment): ?>
 
