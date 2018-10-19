@@ -12,7 +12,7 @@
             <label for="password"><b>Password</b></label>
             <input type="password" placeholder="Votre mot de passe" name="password" required>
                 
-            <button type="submit">Connexion</button>
+            <button class="buttonconnexion" type="submit">Connexion</button>
 
         </div>
 

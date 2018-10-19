@@ -3,8 +3,6 @@
 <?php $title = 'Modification de l\'article'; ?>
 <?php $titleCat = 'Modification de l\'article'; ?>
 
-<?php foreach ($showOnePost as $post): ?>
-
     <form method="post">
 
         <a href='index.php?p=admin'><input name="Button" value="Annuler" type="button" /></a>
@@ -26,8 +24,6 @@
         </textarea>
 
     </form>
-
-<?php endforeach; ?>
 
 <?php $content = ob_get_clean(); ?>
 

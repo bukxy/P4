@@ -45,19 +45,19 @@ try {
             BackController::adminDashboard();
         }
         elseif ($_GET['p'] == 'editPost') {
-            BackController::editPost();
+            BackController::editPostView();
         }
         elseif ($_GET['p'] == 'newPost') {
             BackController::newPost();
         }
         elseif ($_GET['p'] == 'addPost') {
 
-            if (!empty($_POST['title']) && !empty($_POST['post'])) {
+            if (!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {
+                
                 BackController::addPost($_POST['title'], $_POST['author'], $_POST['post']);
             }
             else {
                 throw new Exception('Impossible d\'ajouter cet article');
-                var_dump($_POST['title'],$_POST['author'], $_POST['post']);
             }
         }
         elseif ($_GET['p'] == 'updatePost') {
@@ -76,6 +76,18 @@ try {
         }
         elseif ($_GET['p'] == 'deletePost') {
             BackController::deletePost();
+        }
+        elseif ($_GET['p'] == 'comments') {
+            BackController::getAllComments();
+        }
+        elseif ($_GET['p'] == 'editComment') {
+            BackController::editCommentView();
+        }
+        elseif ($_GET['p'] == 'updateComment') {
+            BackController::updateComment();
+        }
+        elseif ($_GET['p'] == 'deleteComment') {
+            BackController::deleteComment();
         }
         elseif ($_GET['p'] == 'user') {
             BackController::user();

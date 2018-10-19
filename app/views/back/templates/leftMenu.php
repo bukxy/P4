@@ -2,14 +2,20 @@
   <div class="sidebar-sticky">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" href="index.php?p=admin">
-          <span data-feather="home"></span>
-          Menu principal <!-- <span class="sr-only">(current)</span> -->
+        <a class="nav-link" href="index.php?p=admin">
+          <i class="fas fa-file-alt"></i>
+          Gestion des Articles
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="index.php?p=comments">
+          <i class="fas fa-comment-dots"></i>
+          Gestion des Commentaires
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="index.php?p=user">
-          <span data-feather="file"></span>
+          <i class="fas fa-user-circle"></i>
           Mon Compte
         </a>
       </li>

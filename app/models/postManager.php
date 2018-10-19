@@ -6,12 +6,15 @@ use \PDO;
 
 class PostManager {
 
-    public function addPost($title, $author, $post) {
+    public function addPost(Post $post) {
         $q = Database::getPDO()->prepare('INSERT INTO posts(post_title, post_author, post_date, post) 
-        VALUES(?, ?, NOW(), ?)');
+        VALUES(:post_title, :post_author, NOW(), :post)');
 
-        $q->execute(array($title, $author, $post));
+        $q->bindValue(':post_title', $post->getTitle());
+        $q->bindValue(':post_author', $post->getAuthor());
+        $q->bindValue(':post', $post->getPost());
 
+        $q->execute();
     }
 
     public function getOnePost($postId) {
@@ -27,7 +30,7 @@ class PostManager {
         while ($datas = $q->fetch()){
             $post[] = new Post($datas);
         }
-
+        
         return $post;
     }
 

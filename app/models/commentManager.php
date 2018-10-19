@@ -7,7 +7,6 @@ use \PDO;
 class CommentManager {
 
     public function addComment($postId, $author, $comment) {
-
         $q = Database::getPDO()->prepare('INSERT INTO comments(comment_id_post, comment_author, comment, comment_date) 
         VALUES(?, ?, ?, NOW())');
 
@@ -17,44 +16,50 @@ class CommentManager {
 
     }
 
-    public function getOneComment($id) {
-        $id = (int) $id;
+    public function getOneComment(Comment $comment) {
 
-        $q = Database::getPDO()->query('SELECT comment_id, comment_id_post, comment_author, comment_date, comment 
-        FROM comments 
-        WHERE id = '.$id);
-        $datas = $q->fetch(PDO::FECTH_ASSOC);
+        $q = Database::getPDO()->prepare('SELECT comment_id, comment_id_post, comment_author, comment_date, comment 
+        FROM comments
+        WHERE comment_id = :id');
 
-        return new Comment($datas);
+        $q->bindValue(':id', $comment->getId());
+
+        $q->execute();
+
+        $comment = $q->fetch(PDO::FETCH_ASSOC);
+
+        return new Comment($comment);
     }
 
     public function updateComment(Comment $comment) { 
         $q = Database::getPDO()->prepare('UPDATE comments 
-        SET idPost = :comment_id_post, commentAuthor = :comment_author, commentDate = :comment_date, commentContent = :comment 
-        WHERE id = :id');
+        SET comment = :c
+        WHERE comment_id = :com_id');
 
-        $q->bindValue(':comment_id_post', $comment->idPost());
-        $q->bindValue(':comment_author', $comment->author());
-        $q->bindValue(':comment_date', $comment->date());
-        $q->bindValue(':comment', $comment->comment());
-        $q->bindValue(':id', $comment->id(), PDO::PARAM_INT);
+        $q->bindValue(':c', $comment->getComment());
+        $q->bindValue(':com_id', $comment->getId());
     
         $q->execute();    
     }
 
     public function deleteComment($id) {
-        $q = Database::getPDO()->exec('DELETE FROM comments WHERE id = '.$comment->id());   
+        $q = Database::getPDO()->prepare('DELETE FROM comments 
+        WHERE comment_id = ?');
+
+        $q->execute(array($id));
     }
 
     public function getAllComments(){
         $comments = [];
-        $q = Database::getPDO()->query('SELECT comment_id, comment_id_post, comment_author, comment_date, comment 
-        FROM comments ORDER BY comment_date DESC');
 
-        while ($datas = $q-> fetch(PDO::FETCH_ASSOC)){
+        $q = Database::getPDO()->query('SELECT comment_id, comment_author, comment_date, comment 
+        FROM comments
+        ORDER BY comment_date DESC');
+
+        while ($datas = $q-> fetch()){
             $comments[] = new Comment($datas);
         }
-        var_dump($comments);
+
         return $comments;
     }
 

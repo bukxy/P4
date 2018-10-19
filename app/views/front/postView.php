@@ -8,13 +8,16 @@
     <?php foreach ($showOnePost as $post): ?>
 
         <div>
-            <h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
-            <p>
-                <em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?>
+            <h3> 
+                <?= htmlspecialchars($post->getTitle()); ?> 
+            </h3>
+
+            <p> 
+                <em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?> 
             </p>
             
-            <p>
-                <?= nl2br(htmlspecialchars($post->getPost()))?>
+            <p> 
+                <?= $post->getPost()?> 
             </p>
         </div>
 
@@ -39,12 +42,12 @@
             </form>
 
         </div>
-
+        
     <?php endforeach; ?>
 
     <?php foreach ($comments as $comment): ?>
 
-    <p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em></p>
+    <p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em> | <button><i class="far fa-flag"></i></button></p>
 
     <p><?= $comment->getComment(); ?></p>
 

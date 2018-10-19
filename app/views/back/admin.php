@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 
-<?php $title = 'Liste des articles'; ?>
-<?php $titleCat = 'Liste des articles'; ?>
+<?php $title = 'Gestion des articles'; ?>
+<?php $titleCat = 'Gestion des articles'; ?>
 
 <a href="index.php?p=newPost"><input name="ButtonAddPost" value="Nouvel article" type="button" /></a>
 
@@ -14,7 +14,7 @@
 			</p>
 				
 			<p>
-				<?= substr(nl2br(htmlspecialchars($post->getPost())), 0, 100); ?>
+				<?= substr($post->getPost(), 0, 100); ?>
 			</p>
 		</div>
 		<div>

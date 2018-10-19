@@ -5,6 +5,7 @@ namespace App\controllers;
 use App\models\PostManager;
 use App\models\CommentManager;
 use App\models\UserManager;
+use App\models\Post;
 
 require('../app/models/postManager.php');
 require('../app/models/commentManager.php');
@@ -34,6 +35,7 @@ class FrontController {
         $commentManager = new CommentManager();
 
         $showOnePost = $onePost->getOnePost($_GET['id']);
+        
         $comments = $commentManager->getCommentsByPostId($_GET['id']);
 
         require('../app/views/front/postView.php');
