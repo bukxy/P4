@@ -7,6 +7,7 @@ use \PDO;
 class PostManager {
 
     public function addPost(Post $post) {
+
         $q = Database::getPDO()->prepare('INSERT INTO posts(post_title, post_author, post_date, post) 
         VALUES(:post_title, :post_author, NOW(), :post)');
 
@@ -17,46 +18,50 @@ class PostManager {
         $q->execute();
     }
 
-    public function getOnePost($postId) {
-
-        $post = [];
+    public function getOnePost(Post $post) {
 
         $q = Database::getPDO()->prepare('SELECT post_id, post_title, post_author, post_date, post 
         FROM posts 
-        WHERE post_id = ?');
+        WHERE post_id = :id');
 
-        $q->execute(array($postId));
+        $q->bindValue(':id', $post->getId());
 
-        while ($datas = $q->fetch()){
-            $post[] = new Post($datas);
-        }
-        
-        return $post;
+        $q->execute();
+
+        $post = $q->fetch();
+
+        return new Post($post);
     }
 
     public function updatePost(Post $post) { 
+
         $q = Database::getPDO()->prepare('UPDATE posts 
-        SET post_title = :post_title, post_author = :post_author, post_date = :post_date, post = :post 
-        WHERE id = :id');
+        SET post_title = :post_title, post_author = :post_author, post = :post 
+        WHERE post_id = :id');
 
         $q->bindValue(':post_title', $post->getTitle());
         $q->bindValue(':post_author', $post->getAuthor());
-        $q->bindValue(':post_date', $post->getDate());
         $q->bindValue(':post', $post->getPost());
+
         $q->bindValue(':id', $post->getId());
-    
+
         $q->execute();
     }
 
-    public function deletePost($postId) {
-        $q = Database::getPDO()->prepare('DELETE FROM posts 
-        WHERE post_id = ?');
+    public function deletePost(Post $post) {
 
-        $q->execute(array($postId));
+        $q = Database::getPDO()->prepare('DELETE FROM posts 
+        WHERE post_id = :id');
+
+        $q->bindValue(':id', $post->getId());
+
+        $q->execute();
     }
 
     public function getAllPosts() {
+        
         $posts = [];
+
         $q = Database::getPDO()->query("SELECT * FROM posts ORDER BY post_date DESC");
 
         while ($datas = $q->fetch()){

@@ -18,7 +18,7 @@
 			</p>
 		</div>
 		<div>
-			<a href="index.php?p=deletePost&amp;id=<?= $post->getId() ?>"><input name="ButtonDeletePost" value="Supprimer l'article" type="submit" /></a>
+			<a href="index.php?p=deletePost&amp;id=<?= $post->getId() ?>"><input name="ButtonDeletePost" id="deletePostJS" value="Supprimer l'article" type="submit" /></a>
 			<a href="index.php?p=editPost&amp;id=<?= $post->getId() ?>"><input name="ButtonEditPost" value="Modifier l'article" type="submit" /></a>
 		</div>
 

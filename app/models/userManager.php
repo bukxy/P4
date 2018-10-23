@@ -37,7 +37,7 @@ class UserManager {
         $q->execute();    
     }
 
-    public function deleteuser(User $user) {
+    public function deleteUser(User $user) {
         $q = App::getDb()->exec('DELETE FROM users WHERE id = '.$user->id());   
     }
 
@@ -52,20 +52,14 @@ class UserManager {
         return $users;
     }
 
-    public function checkUserConnexion($email) {
+    public function checkUserConnexion(user $user) {
 
-        $user = [];
+        $q = App::getDb()->prepare('SELECT * FROM users 
+        WHERE email = :email');
 
-        $q = App::getDb()->prepare('SELECT id, users.password FROM users 
-        WHERE email = ?');
+        $q->bindValue(':email', $user->userEmail());
 
-        $q = execute(array($email));
-
-        while ($datas = $q->fetch()){
-            $user[] = new User($datas);
-        }
-
-        return $user;
+        $q = execute();
     }
 
 }

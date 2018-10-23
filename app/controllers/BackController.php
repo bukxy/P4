@@ -22,7 +22,11 @@ class BackController {
 
         $onePost = new PostManager();
 
-        $showOnePost = $onePost->getOnePost($_GET['id']);
+        $post = $onePost->getOnePost(
+            $post = new Post([
+                'post_id' => $_GET['id']
+            ])
+        );
 
         require('../app/views/back/editPostView.php');
     }
@@ -56,8 +60,9 @@ class BackController {
 
         $postManager = new PostManager();
         $updatePost = $postManager->updatePost(
-            $post = new Post(
+            $updatePost = new Post(
                 [
+                    'post_id' => $_GET['id'],
                     'post_title' => $_POST['title'],
                     'post_author' => $_POST['author'],
                     'post' => $_POST['post']
@@ -75,7 +80,13 @@ class BackController {
     public static function deletePost() {
 
         $postManager = new PostManager();
-        $deletePost = $postManager->deletePost($_GET['id']);
+        $deletePost = $postManager->deletePost(
+            $deletePost = new Post(
+                [
+                    'post_id' => $_GET['id']
+                ]
+            )
+        );
 
         if ($deletePost === false) {
             die('Impossible de supprimer l\'article !');
@@ -98,12 +109,12 @@ class BackController {
         $oneComment = new CommentManager();
 
         $comment = $oneComment->getOneComment(            
-            $comment = new Comment([
-                'comment_id' => $_GET['id']
-            ])
+            $comment = new Comment(
+                [
+                    'comment_id' => $_GET['id']
+                ]
+            )
         );
-
-        var_dump($comment);
 
         require('../app/views/back/editComment.php');
     }
@@ -113,10 +124,12 @@ class BackController {
         $commentsManager = new CommentManager();
         $editComment = $commentsManager->updateComment(
             $comment = new Comment(
-            [
-                'comment_id' => $_GET['id']
-            ]
-        ));
+                [
+                    'comment_id' => $_GET['id'],
+                    'comment' => $_POST['comment']
+                ]
+            )
+        );
 
         if ($editComment === false) {
             die('Impossible de modifier le commentaire !');
@@ -129,7 +142,13 @@ class BackController {
     public static function deleteComment() {
 
         $commentsManager = new CommentManager();
-        $deleteComment = $commentsManager->deleteComment($_GET['id']);
+        $deleteComment = $commentsManager->deleteComment(
+            $deleteComment = new Comment(
+                [
+                    'comment_id' => $_GET['id']
+                ]
+            )
+        );
 
         if ($deleteComment === false) {
             die('Impossible de supprimer le commentaire !');

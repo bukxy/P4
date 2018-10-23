@@ -25,6 +25,14 @@ try {
                 throw new Exception('Aucun identifiant de post envoyé');
             }
         }
+        elseif ($_GET['p'] == 'reportComment') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                FrontController::reportComment($_GET['id']);
+            }
+            else {
+                throw new Exception('Erreur : aucun identifiant de billet envoyé');
+            }
+        }
         elseif ($_GET['p'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['author']) && !empty($_POST['comment'])) {
@@ -63,11 +71,11 @@ try {
         elseif ($_GET['p'] == 'updatePost') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['title']) && !empty($_POST['post'])) {
-                    BackController::updatePost($_POST['title'], $_POST['post']);
+                    BackController::updatePost($_POST['title'], $_POST['author'], $_POST['post']);
                 }
                 else {
                     throw new Exception('Tous les champs ne sont pas remplis !');
-                    var_dump($_POST['title'], $_POST['post']);
+                    var_dump($_POST['title'], $_POST['author'], $_POST['post']);
                 }
             }
             else {
@@ -84,7 +92,18 @@ try {
             BackController::editCommentView();
         }
         elseif ($_GET['p'] == 'updateComment') {
-            BackController::updateComment();
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                if (!empty($_POST['comment'])) {
+                    BackController::updateComment($_POST['comment']);
+                }
+                else {
+                    throw new Exception('Tous les champs ne sont pas remplis !');
+                    var_dump($_POST['comment']);
+                }
+            }
+            else {
+                throw new Exception('Cet article n\'existe pas');
+            }
         }
         elseif ($_GET['p'] == 'deleteComment') {
             BackController::deleteComment();

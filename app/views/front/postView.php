@@ -5,8 +5,6 @@
 
 <?php ob_start(); ?>
 
-    <?php foreach ($showOnePost as $post): ?>
-
         <div>
             <h3> 
                 <?= htmlspecialchars($post->getTitle()); ?> 
@@ -42,12 +40,11 @@
             </form>
 
         </div>
-        
-    <?php endforeach; ?>
 
     <?php foreach ($comments as $comment): ?>
 
-    <p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em> | <button><i class="far fa-flag"></i></button></p>
+    <p>De <strong><?= $comment->getAuthor(); ?></strong> le <em><?= $comment->getDate(); ?></em> | 
+    <a href="index.php?p=reportComment&amp;id=<?= $comment->getId() ?>"><button><i class="far fa-flag"></i></button></a></p>
 
     <p><?= $comment->getComment(); ?></p>
 

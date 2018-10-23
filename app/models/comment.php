@@ -8,6 +8,7 @@ class Comment {
     private $comment_id_post;
     private $comment_author;
     private $comment_date;
+    private $comment_report;
     private $comment;
 
     public function __construct(array $datas)
@@ -37,6 +38,9 @@ class Comment {
     public function getDate() {
         return $this->comment_date;
     }
+    public function getReport() {
+        return $this->comment_report;
+    }
     public function getComment() {
         return $this->comment;
     }
@@ -57,6 +61,17 @@ class Comment {
     }
     public function setComment_author($author) {
         $this->comment_author = $author;
+    }
+    public function setComment_report($report) {
+        $report = (int) $report;
+
+        if ($report == null) {
+            echo 'Aucun';
+        }
+
+        if ($report >0) {
+           $this->comment_report = $report;
+        }
     }
     public function setComment_date($date) {
         $this->comment_date = $date;
