@@ -3,10 +3,13 @@
 namespace App\controllers;
 
 use App\models\PostManager;
-use App\models\CommentManager;
-use App\models\UserManager;
 use App\models\Post;
+
+use App\models\CommentManager;
 use App\models\Comment;
+
+use App\models\UserManager;
+use App\models\User;
 
 require('../app/models/postManager.php');
 require('../app/models/commentManager.php');
@@ -84,7 +87,7 @@ class FrontController {
         );
 
         if ($reportComment === false) {
-            die('Commentaire introuvable.');
+            die('Commentaire introuvable.'); // le faire en html
         } else {
             header('Location: index.php?p=post&id=' . $_GET['id']);
         }
@@ -96,28 +99,38 @@ class FrontController {
         $user = $userManager->checkUserConnexion(
             $user = new User(
                 [
-                    'email' => $_POST['email'],
+                    'pseudo' => $_POST['pseudo'],
                     'password' => $_POST['password']
                 ]
             )
         );
 
-        $isPasswordCorrect = password_verify($_POST['email'], $_POST['password']);
+        $pass_crypte = password_hash($_POST['password'], PASSWORD_DEFAULT); // On crypte le mot de passe
 
-        if (!$user) {
-            die('Mauvais identifiant ou mot de passe !');
+        // Comparaison du pass envoyé via le formulaire avec la base
+        $isPasswordCorrect = password_verify($_POST['password'], $pass_crypte);
+
+        var_dump($pass_crypte);
+        var_dump($isPasswordCorrect);
+
+        if (isset($_POST['pseudo']))
+        {
+            echo 'Pseudo introuvable';
         }
-        else {
-            if ($isPasswordCorrect) {
+        else
+        {
+            if ($isPasswordCorrect === true) {
                 session_start();
-                $_SESSION['password'] = $_GET['password'];
-                $_SESSION['email'] =  $_GET['email'];
+                $_SESSION['pseudo'] = $_POST['pseudo'];
                 echo 'Vous êtes connecté !';
+
+                var_dump($_SESSION['pseudo']);
+
+                //header('Location: index.php?p=connexion');
             }
             else {
-                echo 'Mauvais identifiant ou mot de passe !';
+                echo 'Mauvais mot de passe !';
             }
         }
-            
     }
 }
