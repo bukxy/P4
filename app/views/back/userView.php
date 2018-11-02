@@ -1,27 +1,27 @@
-<?php ob_start(); ?>
+<?php ob_start(); 
 
-<?php $title = 'Mon compte'; ?>
-<?php $titleCat = 'Mon compte'; ?>
+session_start();
+if (isset($_SESSION['pseudo'])) { ?>
 
+    <?php $title = 'Mon compte'; ?>
+    <?php $titleCat = 'Mon compte'; ?>
 
-	<?php foreach ($posts as $post): ?>
+    <form action="index.php?p=updateUser&amp;id=<?= $user->getId() ?>" method="post">
 
-		<div>
-			<h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
-			<p>
-				<em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?>
-			</p>
-				
-			<p>
-				<?= substr(nl2br(htmlspecialchars($post->getPost())), 0, 100); ?>
-			</p>
-		</div>
-		<div>
-			<a href="index.php?p=deletePost&amp;id=<?= $post->getId() ?>"><input name="ButtonDeletePost" value="Supprimer l'article" type="submit" /></a>
-			<a href="index.php?p=editPost&amp;id=<?= $post->getId() ?>"><input name="ButtonEditPost" value="Modifier l'article" type="submit" /></a>
-		</div>
+        <a href="index.php?p=updateUser&amp;id=<?= $user->getId() ?>"><input name="edit" value="Sauvegarder les modifications" type="submit" /></a>
 
-	<?php endforeach; ?>
+        <label for="pseudo">Mon pseudo :</label>
+        <input type="text" name="pseudo" placeholder="pseudo" class="editInput" value="<?= htmlspecialchars($user->getPseudo()); ?>" required>
+
+		<label for="email">Mon email :</label>
+        <input type="text" name="email" placeholder="email" class="editInput" value="<?= htmlspecialchars($user->getEmail()); ?>" required>
+
+    </form>
+
+<?php
+} else {
+	header('Location: index.php?p=connexion');
+} ?>
 
 <?php $content = ob_get_clean(); ?>
 

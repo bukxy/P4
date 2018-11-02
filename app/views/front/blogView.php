@@ -6,18 +6,21 @@
 
 <?php foreach ($posts as $post): ?>
 
-    <div>
-        <h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
-        <p>
-            <em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?>
-        </p>
-        
-        <p>
-            <?= substr(($post->getPost()), 0, 200); ?>
-            <br />
+    <div class="postContainer">
+        <div>
+            <h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
+            <p>
+                <em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?>
+            </p>
 
-            <em><a href="index.php?p=post&amp;id=<?= $post->getId() ?>">Voir la suite</a></em>
-        </p>
+            <div>
+                <p>
+                    <?= strip_tags(substr(($post->getPost()), 0, 400)); ?>
+                    <br />
+                </p>
+            </div>
+            <a href="index.php?p=post&amp;id=<?= $post->getId() ?>"><input class="buttonVoirLaSuite" name="suite" value="Voir la suite" type="button" /></a>
+        </div>
     </div>
 
 <?php endforeach; ?>

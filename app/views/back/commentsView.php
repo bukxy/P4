@@ -1,7 +1,10 @@
-<?php ob_start(); ?>
+<?php ob_start(); 
 
-<?php $title = 'Gestion des commentaires'; ?>
-<?php $titleCat = 'Gestion des commentaires'; ?>
+session_start();
+if (isset($_SESSION['pseudo'])) { ?>
+
+    <?php $title = 'Gestion des commentaires'; ?>
+    <?php $titleCat = 'Gestion des commentaires'; ?>
 
     <table>
 
@@ -28,6 +31,11 @@
         <?php endforeach; ?>
 
     </table>
+
+<?php
+} else {
+	header('Location: index.php?p=connexion');
+} ?>
 
 <?php $content = ob_get_clean(); ?>
 

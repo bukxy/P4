@@ -60,7 +60,9 @@ class Comment {
         }
     }
     public function setComment_author($author) {
-        $this->comment_author = $author;
+        if (is_string($author)) {
+            $this->comment_author = $author;
+        }
     }
     public function setComment_report($report) {
         $report = (int) $report;

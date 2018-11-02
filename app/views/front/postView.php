@@ -28,11 +28,11 @@
 
                 <div>
                     <label for="author">Auteur :</label><br />
-                    <input type="text" id="author" name="author" />
+                    <input type="text" id="author" name="author" required />
                 </div>
                 <div>
                     <label for="comment">Commentaire :</label><br />
-                    <textarea id="comment" name="comment"></textarea>
+                    <textarea id="comment" name="comment" required ></textarea>
                 </div>
 
                 <input type="submit" value="Poster le commentaire" />

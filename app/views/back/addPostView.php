@@ -1,7 +1,10 @@
-<?php ob_start(); ?>
+<?php ob_start(); 
 
-<?php $title = 'Nouvel article'; ?>
-<?php $titleCat = 'Ajout d\'un nouvel article'; ?>
+session_start();
+if (isset($_SESSION['pseudo'])) { ?>
+
+    <?php $title = 'Nouvel article'; ?>
+    <?php $titleCat = 'Ajout d\'un nouvel article'; ?>
 
     <div class="addPost">
 
@@ -33,6 +36,11 @@
         </form>
 
     </div>
+
+<?php
+} else {
+	header('Location: index.php?p=connexion');
+} ?>
 
 <?php $content = ob_get_clean(); ?>
 

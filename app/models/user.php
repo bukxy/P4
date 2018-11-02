@@ -38,17 +38,25 @@ class User {
     }
 
     public function setId($id) {
-        $this->id = (int) $id;
+        $id = (int) $id;
+
+        if ($id >0) {
+            $this->id = $id;
+        }
     }
     public function setPseudo($pseudo) {
-        $this->pseudo = $pseudo;
+        if (is_string($pseudo)) {
+            $this->pseudo = $pseudo;
+        }
     }
     public function setEmail($email) {
-        if (filter_var($password , FILTER_VALIDATE_EMAIL)) {
+        if (is_string($email)) {
             $this->email = $email;
         }
     }
     public function setPassword($password) {
-        $this->password = $password;
+        if (is_string($password)) {
+            $this->password = $password;
+        }
     }
 }

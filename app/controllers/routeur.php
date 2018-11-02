@@ -30,7 +30,7 @@ try {
                 FrontController::reportComment($_GET['id']);
             }
             else {
-                throw new Exception('Erreur : aucun identifiant de billet envoyé');
+                throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
         elseif ($_GET['p'] == 'addComment') {
@@ -39,11 +39,11 @@ try {
                     FrontController::newComment($_GET['id'], $_POST['author'], $_POST['comment']);
                 }
                 else {
-                    throw new Exception('Erreur : tous les champs ne sont pas remplis !');
+                    throw new Exception('Tous les champs ne sont pas remplis !');
                 }
             }
             else {
-                throw new Exception('Erreur : aucun identifiant de billet envoyé');
+                throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
         elseif ($_GET['p'] == 'connexion') {
@@ -60,8 +60,7 @@ try {
         }
         elseif ($_GET['p'] == 'addPost') {
 
-            if (!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {
-                
+            if (!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {      
                 BackController::addPost($_POST['title'], $_POST['author'], $_POST['post']);
             }
             else {
@@ -75,7 +74,6 @@ try {
                 }
                 else {
                     throw new Exception('Tous les champs ne sont pas remplis !');
-                    var_dump($_POST['title'], $_POST['author'], $_POST['post']);
                 }
             }
             else {
@@ -98,7 +96,6 @@ try {
                 }
                 else {
                     throw new Exception('Tous les champs ne sont pas remplis !');
-                    var_dump($_POST['comment']);
                 }
             }
             else {
@@ -112,12 +109,10 @@ try {
             BackController::user();
         }
         elseif ($_GET['p'] == 'checkUserConnexion') {
-            if (isset($_GET['email']) && isset($_GET['password'])) {
-                FrontController::checkUserConnexion($_POST['email'], $_POST['password']);
-            }
-            else {
-                throw new Exception('Ce mot de passe ne correspond pas a cet utilisateur');
-            }
+            BackController::checkUserConnexion($_POST['pseudo'], $_POST['password']);
+        }
+        elseif ($_GET['p'] == 'disconnect') {
+            BackController::disconnect();
         }
     }
     else {

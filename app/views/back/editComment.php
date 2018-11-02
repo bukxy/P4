@@ -1,7 +1,10 @@
-<?php ob_start(); ?>
+<?php ob_start(); 
 
-<?php $title = 'Modification du commentaire'; ?>
-<?php $titleCat = 'Modification du commentaire'; ?>
+session_start();
+if (isset($_SESSION['pseudo'])) { ?>
+
+    <?php $title = 'Modification du commentaire'; ?>
+    <?php $titleCat = 'Modification du commentaire'; ?>
 
     <form action="index.php?p=updateComment&amp;id=<?= $comment->getId() ?>" method="post">
 
@@ -21,6 +24,11 @@
         </textarea>
 
     </form>
+
+<?php
+} else {
+	header('Location: index.php?p=connexion');
+} ?>
 
 <?php $content = ob_get_clean(); ?>
 

@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -18,7 +17,7 @@
             <h1 class="h2"><?= $titleCat ?></h1>
           </div>
 
-            <?= $content ?>
+            <?= $content; ?>
 
         </main>
       </div>

@@ -1,7 +1,10 @@
-<?php ob_start(); ?>
+<?php ob_start(); 
 
-<?php $title = 'Modification de l\'article'; ?>
-<?php $titleCat = 'Modification de l\'article'; ?>
+session_start();
+if (isset($_SESSION['pseudo'])) { ?>
+
+    <?php $title = 'Modification de l\'article'; ?>
+    <?php $titleCat = 'Modification de l\'article'; ?>
 
     <form action="index.php?p=updatePost&amp;id=<?= $post->getId() ?>" method="post">
 
@@ -23,10 +26,15 @@
 
         <p>Contenu :</p>
         <textarea type="text" name="post" id="tinyMCE" id="PostContent" required>
-            <?= nl2br(htmlspecialchars($post->getPost()))?>
+            <?= htmlspecialchars($post->getPost())?>
         </textarea>
 
     </form>
+
+<?php
+} else {
+	header('Location: index.php?p=connexion');
+} ?>
 
 <?php $content = ob_get_clean(); ?>
 

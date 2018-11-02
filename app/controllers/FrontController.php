@@ -89,48 +89,8 @@ class FrontController {
         if ($reportComment === false) {
             die('Commentaire introuvable.'); // le faire en html
         } else {
-            header('Location: index.php?p=post&id=' . $_GET['id']);
-        }
-    }
-
-    public static function checkUserConnexion() {
-
-        $userManager = new UserManager();
-        $user = $userManager->checkUserConnexion(
-            $user = new User(
-                [
-                    'pseudo' => $_POST['pseudo'],
-                    'password' => $_POST['password']
-                ]
-            )
-        );
-
-        $pass_crypte = password_hash($_POST['password'], PASSWORD_DEFAULT); // On crypte le mot de passe
-
-        // Comparaison du pass envoyé via le formulaire avec la base
-        $isPasswordCorrect = password_verify($_POST['password'], $pass_crypte);
-
-        var_dump($pass_crypte);
-        var_dump($isPasswordCorrect);
-
-        if (isset($_POST['pseudo']))
-        {
-            echo 'Pseudo introuvable';
-        }
-        else
-        {
-            if ($isPasswordCorrect === true) {
-                session_start();
-                $_SESSION['pseudo'] = $_POST['pseudo'];
-                echo 'Vous êtes connecté !';
-
-                var_dump($_SESSION['pseudo']);
-
-                //header('Location: index.php?p=connexion');
-            }
-            else {
-                echo 'Mauvais mot de passe !';
-            }
+            $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php?p=blog';
+            header('Location: ' . $referer);
         }
     }
 }

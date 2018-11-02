@@ -8,6 +8,8 @@
         <div id="site">
 
             <?php include("menu.php"); ?>
+
+            <div id="notification"></div>
             
             <?= $content ?>
 

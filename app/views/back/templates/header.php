@@ -14,5 +14,7 @@
 
 
     <!-- Custom styles for this template -->
+    <link href="../public/css/global.css" rel="stylesheet">
+    
     <link href="../public/css/dashboard.css" rel="stylesheet">
 </head>

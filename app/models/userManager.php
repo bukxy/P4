@@ -2,33 +2,39 @@
 
 namespace App\models;
 
-use App\App;
+use \PDO;
 
 class UserManager {
 
-    private $_id, $_pseudo, $_email;
-
     public function addUser(User $user) {
-        $q = App::getDb()->prepare('INSERT INTO users(id, pseudo, email) VALUES(:id, :pseudo, :email)');
+        $q = Database::getPDO()->prepare('INSERT INTO users(pseudo, email, users.password) 
+        VALUES(:pseudo, :email, :pass)');
 
-        $q->bindValue(':id', $user->userId(), PDO::PARAM_INT);
-        $q->bindValue(':pseudo', $user->userAuthor());
-        $q->bindValue(':email', $user->userEmail());
+        $q->bindValue(':pseudo', $user->getPseudo());
+        $q->bindValue(':email', $user->getEmail());
+        $q->bindValue(':pass', $user->getPassword());
     
         $q->execute();
     }
 
-    public function getOneUser($id) {
-        $id = (int) $id;
+    public function getOneUser(User $user) {
+        $q = Database::getPDO()->prepare('SELECT id, pseudo, email
+        FROM users 
+        WHERE id = :id');
 
-        $q = App::getDb()->query('SELECT id, pseudo, mail FROM users WHERE id = '.$id);
-        $datas = $q->fetch(PDO::FECTH_ASSOC);
+        $q->bindValue(':id', $user->getId());
 
-        return new User($datas);
+        $q->execute();
+
+        $user = $q->fetch();
+
+        return new User($user);
     }
 
     public function updateUser(User $user) { 
-        $q = App::getDb()->prepare('UPDATE users SET userId = :id, userPseudo = :pseudo, userEmail = :email WHERE id = :id');
+        $q = Database::getPDO()->prepare('UPDATE users 
+        SET userId = :id, userPseudo = :pseudo, userEmail = :email 
+        WHERE id = :id');
 
         $q->bindValue(':id', $user->userId(), PDO::PARAM_INT);
         $q->bindValue(':pseudo', $user->userAuthor());
@@ -38,12 +44,20 @@ class UserManager {
     }
 
     public function deleteUser(User $user) {
-        $q = App::getDb()->exec('DELETE FROM users WHERE id = '.$user->id());   
+        
+        $q = Database::getPDO()->prepare('DELETE FROM users
+        WHERE id = :id');
+
+        $q->bindValue(':id', $user->getId());
+
+        $q->execute();
     }
 
     public function getAllUsers(){
+
         $users = [];
-        $q = App::getDb()->query('SELECT id, pseudo, email FROM users');
+
+        $q = Database::getPDO()->query('SELECT pseudo, email FROM users');
 
         while ($datas = $q-> fetch(PDO::FETCH_ASSOC)){
             $users[] = new user($datas);
@@ -51,15 +65,25 @@ class UserManager {
 
         return $users;
     }
+    
+    public function checkUserConnexion(User $user) {
 
-    public function checkUserConnexion(user $user) {
+        $q = Database::getPDO()->prepare('SELECT id, email, users.password FROM users 
+        WHERE pseudo = :pseudo');
 
-        $q = App::getDb()->prepare('SELECT * FROM users 
-        WHERE email = :email');
+        $q->bindValue(':pseudo', $user->getPseudo());
 
-        $q->bindValue(':email', $user->userEmail());
+        $q->execute();
 
-        $q = execute();
+        $user = $q->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            return new User($user);
+        } else {
+            session_start();
+            $_SESSION['message'] = 'Ce pseudo est introuvable...';
+
+            header('Location: index.php?p=connexion');
+        }
     }
-
 }
