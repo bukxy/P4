@@ -1,0 +1,25 @@
+.postContainer {
+    max-width: 1000px;
+    width: 100%;
+    border: 2px solid rgba(0, 0, 0, 0.4);;
+    border-radius: 10px;
+    margin: 15px auto;
+    padding: 10px;
+}
+
+.postContainer {
+    padding: 10px;
+}
+
+.postContainer a:link {
+    text-decoration: none;
+}
+
+.buttonVoirLaSuite {
+    border: 1 solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    background-color: white;
+    padding: 3px;
+    float: right;
+    margin: -13px 0 0 0;
+}
