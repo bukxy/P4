@@ -1,15 +1,16 @@
-<?php $title = 'Connexion'; ?>
+<?php
+session_start();
+$title = 'Connexion'; ?>
 
 <?php ob_start();
 
-session_start();
-
-if (isset($_SESSION['message'])) {?>
+if (isset($_SESSION['notif'])) {?>
 
     <div id="connexionFailed">
-        <p><?= $_SESSION['message'] ?></p>
-
-        <?php unset($_SESSION['message']); ?>
+        <p>
+			<?= $_SESSION['notif'];
+			unset($_SESSION['notif']); ?>
+		</p>
     </div>
 
 <?php 

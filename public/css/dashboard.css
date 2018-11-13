@@ -9,8 +9,8 @@ body {
 }
 
 /*
-  * Sidebar
-  */
+ * Sidebar
+*/
 
 .sidebar {
   position: fixed;
@@ -100,7 +100,7 @@ body {
 }
 
 /*
-  * post view
+ * TINYMCE
 */
 
 
@@ -120,4 +120,37 @@ textarea, .editInput {
 
 input:hover {
   border: 2px solid rgba(0,0,0,0.6);
+}
+
+/* 
+	Container notification Admin Yes / No 
+*/
+
+.notifAdmin p{
+    margin: 5px 0 0 0;
+    text-align: center;
+}
+
+.notifAdmin {
+    max-width: 800px;
+    width: 100%;
+	  height: 55px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0px auto 30px auto;
+}
+
+.notifAdminGreen {
+    background-color: rgba(0,255,0,0.4);
+}
+
+.notifAdminRed {
+    background-color: rgba(255,0,0,0.4);
+}
+
+.notifAdminBlue {
+  background-color: rgba(0,0,255,0.4);
+}
+.strongStyle {
+    font-weight: bold;
 }

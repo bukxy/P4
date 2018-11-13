@@ -14,7 +14,7 @@ class PostManager {
         $q->bindValue(':post_title', $post->getTitle());
         $q->bindValue(':post_author', $post->getAuthor());
         $q->bindValue(':post', $post->getPost());
-
+        
         $q->execute();
     }
 

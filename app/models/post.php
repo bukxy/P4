@@ -38,8 +38,10 @@ class Post {
         return $this->post_date;
     }
     public function getPost() {
-        return $this->post;
-        
+        return $this->post; 
+    }
+    public function getReport() {
+        return $this->post_report;
     }
 
     public function setPost_id($id) {

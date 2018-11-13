@@ -1,6 +1,7 @@
-<?php ob_start(); 
-
+<?php
 session_start();
+ob_start(); 
+
 if (isset($_SESSION['pseudo'])) { ?>
 
     <?php $title = 'Gestion des commentaires'; ?>
@@ -19,11 +20,11 @@ if (isset($_SESSION['pseudo'])) { ?>
 
         <tr>
             <td><?= $comments->getAuthor();?></td>
-            <td><?= substr(nl2br(htmlspecialchars($comments->getComment())), 0, 60)?></td>
+            <td><?= substr(strip_tags($comments->getComment()), 0, 60)?></td>
             <td><?= $comments->getDate();?></td>
             <td><?= $comments->getReport();?></td>
             <td>
-			    <a href="index.php?p=deleteComment&amp;id=<?= $comments->getId() ?>"><input name="ButtonDeletePost" value="Supprimer" type="submit" /></a>
+			    <a href="index.php?p=deleteComment&amp;id=<?= $comments->getId() ?>"><input class="deleteComment" name="ButtonDeletePost" value="Supprimer" type="submit" /></a>
 			    <a href="index.php?p=editComment&amp;id=<?= $comments->getId() ?>"><input name="ButtonEditPost" value="Modifier" type="submit" /></a>
             </td>
         </tr>

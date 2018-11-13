@@ -50,10 +50,19 @@ class BackController {
             )
         );
 
+        var_dump($addpost);
+
         if ($addPost === false) {
-            die('Impossible d\'ajouter l\'article !');
+			session_start();
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la création de l'article...";
+			
+			header('Location: index.php?p=admin');		
         } else {
-            header('Location: index.php?p=admin');
+			session_start();
+			$_SESSION['postTitle'] = $_POST['title'];
+			$_SESSION['notificationAdminYes'] = "L'article [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] à bien été créer !";
+					
+            header('Location: index.php?p=admin');			
         }
 
     }
@@ -73,9 +82,16 @@ class BackController {
         );
 
         if ($updatePost === false) {
-            die('Impossible de modifier l\'article !');
+			session_start();
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de l'enregistrement des modifications...";
+			
+			header('Location: index.php?p=admin');		
         } else {
-            header('Location: index.php?p=admin&id=' . $postId);
+			session_start();
+			$_SESSION['postTitle'] = $_POST['title'];
+			$_SESSION['notificationAdminYes'] = "Les modifications apportés à l'article [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] ont bien été prise en compte";
+					
+            header('Location: index.php?p=admin');			
         }
     }
 
@@ -91,9 +107,14 @@ class BackController {
         );
 
         if ($deletePost === false) {
-            die('Impossible de supprimer l\'article !');
+			session_start();
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la suppression de l'article...";	
+			header('Location: index.php?p=admin');		
         } else {
-            header('Location: index.php?p=admin');
+			session_start();
+			$_SESSION['notificationAdminYes'] = "Vous avez supprimer cette article avec succcé !";
+					
+            header('Location: index.php?p=admin');			
         }
 
     }
@@ -145,14 +166,14 @@ class BackController {
 
         $commentsManager = new CommentManager();
         $deleteComment = $commentsManager->deleteComment(
-            $deleteComment = new Comment(
+            $delComment = new Comment(
                 [
                     'comment_id' => $_GET['id']
                 ]
             )
         );
 
-        if ($deleteComment === false) {
+        if ($delComment === false) {
             die('Impossible de supprimer le commentaire !');
         } else {
             header('Location: index.php?p=comments');
@@ -188,23 +209,19 @@ class BackController {
         
         // Comparaison du pass envoyé via le formulaire avec la base
         $isPasswordCorrect = password_verify($_POST['password'], $user->getPassword());
+		
+		if ($isPasswordCorrect) {
+			session_start();
+			$_SESSION['pseudo'] = $_POST['pseudo'];
+			$_SESSION['message'] = "Bienvenue ". $_SESSION['pseudo'] ." sur votre espace d'administration !";
 
-        var_dump($isPasswordCorrect);
-        
-        if ($isPasswordCorrect) {
-            session_start();
-            unset($_SESSION['message']);
-            $_SESSION['pseudo'] = $_POST['pseudo'];
-
-            header('Location: index.php?p=admin');
-        }
-        else {
-            echo 'Mot de passe incorrect !';
-            session_start();
-            $_SESSION['message'] = 'Le mot de passe que vous avez entrer ne correspond pas à ce pseudo !';
-
-            header('Location: index.php?p=connexion');
-        }
+			header('Location: index.php?p=admin');
+		}
+		else {
+			session_start();
+			$_SESSION['notif'] = 'Mot de passe est incorrect !';
+			header('Location: index.php?p=connexion');
+		}
     }
 
     public static function disconnect() {

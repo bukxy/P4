@@ -1,6 +1,7 @@
-<?php ob_start(); 
-
+<?php
 session_start();
+ob_start(); 
+
 if (isset($_SESSION['pseudo'])) { ?>
 
     <?php $title = 'Modification de l\'article'; ?>

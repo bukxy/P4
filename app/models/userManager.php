@@ -81,7 +81,7 @@ class UserManager {
             return new User($user);
         } else {
             session_start();
-            $_SESSION['message'] = 'Ce pseudo est introuvable...';
+            $_SESSION['notif'] = 'Ce pseudo est introuvable...';
 
             header('Location: index.php?p=connexion');
         }

@@ -64,19 +64,15 @@ class Comment {
             $this->comment_author = $author;
         }
     }
+    public function setComment_date($date) {
+        $this->comment_date = $date;
+    }
     public function setComment_report($report) {
         $report = (int) $report;
 
-        if ($report == null) {
-            echo 'Aucun';
-        }
-
         if ($report >0) {
-           $this->comment_report = $report;
-        }
-    }
-    public function setComment_date($date) {
-        $this->comment_date = $date;
+            $this->comment_report = $report;
+        } 
     }
     public function setComment($comment) {
         $this->comment =  $comment;

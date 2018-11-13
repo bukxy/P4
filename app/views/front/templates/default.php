@@ -14,11 +14,14 @@
             <?= $content ?>
 
         </div>
-        
-        <?php include("footer.php"); ?>
-
-        <script src="js/jquery.js"></script>
 
     </body>
+
+        <footer>
+
+            <?php include("footer.php"); ?>
+            <?php include $_SERVER['DOCUMENT_ROOT']."/app/views/scripts.php"; ?>
+
+        </footer>
     
 </html>

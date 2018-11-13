@@ -11,8 +11,8 @@ use App\models\Comment;
 use App\models\UserManager;
 use App\models\User;
 
-require('../app/models/postManager.php');
-require('../app/models/commentManager.php');
+require('../app/models/PostManager.php');
+require('../app/models/CommentManager.php');
 
 class FrontController {
 

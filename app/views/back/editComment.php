@@ -1,6 +1,7 @@
-<?php ob_start(); 
-
+<?php 
 session_start();
+ob_start(); 
+
 if (isset($_SESSION['pseudo'])) { ?>
 
     <?php $title = 'Modification du commentaire'; ?>
@@ -20,7 +21,7 @@ if (isset($_SESSION['pseudo'])) { ?>
 
         <p>Contenu du commentaire :</p>
         <textarea type="text" name="comment" id="tinyMCE" id="PostContent" required>
-            <?= nl2br(htmlspecialchars($comment->getComment()))?>
+            <?= htmlspecialchars($comment->getComment())?>
         </textarea>
 
     </form>
