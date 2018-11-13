@@ -1,8 +1,11 @@
 $(document).ready(function () {
- 
-	var deleteControl = Object.create(deleteControl);
-	deleteControl.initialisation();
-	
+
+	var events = Object.create(myEvents);
+	events.initialisation();
+
+	var report = Object.create(reportComment);
+	report.initialisation();
+
 	// Exécute un appel AJAX GET
 	// Prend en paramètres l'URL cible et la fonction callback appelée en cas de succès
 	function ajaxGet(url, callback) {
