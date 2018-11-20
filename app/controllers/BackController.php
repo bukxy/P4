@@ -9,7 +9,6 @@ use App\models\Post;
 use App\models\Comment;
 use App\models\User;
 
-
 class BackController {
 
     public static function adminDashboard() {
@@ -17,7 +16,7 @@ class BackController {
         $postmanager = new PostManager();
         $posts = $postmanager->getAllPosts();
 
-        require('../app/views/back/admin.php');
+        require('../app/views/back/adminView.php');
     }
 
     public static function editPostView() {
@@ -25,9 +24,11 @@ class BackController {
         $onePost = new PostManager();
 
         $post = $onePost->getOnePost(
-            $post = new Post([
-                'post_id' => $_GET['id']
-            ])
+            new Post(
+                [
+                    'post_id' => $_GET['id']
+                ]
+            )
         );
 
         require('../app/views/back/editPostView.php');
@@ -40,8 +41,9 @@ class BackController {
     public static function addPost() {
 
         $postManager = new PostManager();
+
         $addPost = $postManager->addPost(
-            $post = new Post(
+            new Post(
                 [
                     'post_title' => $_POST['title'],
                     'post_author' => $_POST['author'],
@@ -49,8 +51,6 @@ class BackController {
                 ]
             )
         );
-
-        var_dump($addpost);
 
         if ($addPost === false) {
 			session_start();
@@ -71,7 +71,7 @@ class BackController {
 
         $postManager = new PostManager();
         $updatePost = $postManager->updatePost(
-            $updatePost = new Post(
+            new Post(
                 [
                     'post_id' => $_GET['id'],
                     'post_title' => $_POST['title'],
@@ -99,7 +99,7 @@ class BackController {
 
         $postManager = new PostManager();
         $deletePost = $postManager->deletePost(
-            $deletePost = new Post(
+            new Post(
                 [
                     'post_id' => $_GET['id']
                 ]
@@ -132,7 +132,7 @@ class BackController {
         $oneComment = new CommentManager();
 
         $comment = $oneComment->getOneComment(            
-            $comment = new Comment(
+            new Comment(
                 [
                     'comment_id' => $_GET['id']
                 ]
@@ -146,7 +146,7 @@ class BackController {
 
         $commentsManager = new CommentManager();
         $editComment = $commentsManager->updateComment(
-            $comment = new Comment(
+            new Comment(
                 [
                     'comment_id' => $_GET['id'],
                     'comment' => $_POST['comment']
@@ -166,14 +166,14 @@ class BackController {
 
         $commentsManager = new CommentManager();
         $deleteComment = $commentsManager->deleteComment(
-            $delComment = new Comment(
+            new Comment(
                 [
                     'comment_id' => $_GET['id']
                 ]
             )
         );
 
-        if ($delComment === false) {
+        if ($deleteComment === false) {
             die('Impossible de supprimer le commentaire !');
         } else {
             header('Location: index.php?p=comments');
@@ -185,7 +185,7 @@ class BackController {
         $userManager = new UserManager();
 
         $user = $userManager->getOneUser(            
-            $user = new User(
+            new User(
                 [
                     'pseudo' => $_GET['pseudo']
                 ]
@@ -199,7 +199,7 @@ class BackController {
 
         $userManager = new UserManager();
         $user = $userManager->checkUserConnexion(
-            $user = new User(
+            new User(
                 [
                     'pseudo' => $_POST['pseudo'],
                     'password' => $_POST['password']

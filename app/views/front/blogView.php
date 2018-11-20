@@ -1,27 +1,34 @@
-
 <?php $title = 'Mon Blog'; ?>
 
-<h1>Derniers posts :</h1>
 <?php ob_start(); ?>
+
+<div class="h1Page">
+    <h1>Mes derniers articles :</h1>
+</div>
 
 <?php foreach ($posts as $post): ?>
 
-    <div class="postContainer">
+    <section class="postContainer">
         <div>
-            <h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
+            <h2> <?= htmlspecialchars($post->getTitle()); ?> </h2>
             <p>
                 <em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?>
             </p>
 
             <div>
                 <p>
-                    <?= strip_tags(substr(($post->getPost()), 0, 400)); ?>
+                    <?= substr(($post->getPost()), 0, 400); ?>
                     <br />
                 </p>
             </div>
-            <a href="index.php?p=post&amp;id=<?= $post->getId() ?>"><input class="buttonVoirLaSuite" name="suite" value="Voir la suite" type="button" /></a>
+
+            <div class="buttonVoirLaSuite">
+                <a href="index.php?p=post&amp;id=<?= $post->getId() ?>">
+                    <span>Voir la suite</span>
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
 
 <?php endforeach; ?>
 

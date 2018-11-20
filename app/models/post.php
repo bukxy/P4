@@ -7,6 +7,7 @@ class Post {
     private $post_id;
     private $post_author;
     private $post_date;
+    private $post_edit_date;
     private $post_title;
     private $post;
 
@@ -37,6 +38,9 @@ class Post {
     public function getDate() {
         return $this->post_date;
     }
+    public function getEdit_date() {
+        return $this->post_edit_date;
+    }
     public function getPost() {
         return $this->post; 
     }
@@ -65,6 +69,9 @@ class Post {
     }
     public function setPost_date($date) {
         $this->post_date = $date;
+    }
+    public function setPost_edit_date($edit_date) {
+        $this->post_edit_date = $edit_date;
     }
     public function setPost($post) {
         if (is_string($post)) {

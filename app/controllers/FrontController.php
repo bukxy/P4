@@ -39,15 +39,19 @@ class FrontController {
         $commentManager = new CommentManager();
 
         $post = $onePost->getOnePost(
-            $post = new Post([
-                'post_id' => $_GET['id']
-            ])
+            new Post(
+                [
+                    'post_id' => $_GET['id']
+                ]
+            )
         );
         
         $comments = $commentManager->getCommentsByPostId(
-            $comments = new Comment([
-                'comment_id_post' => $_GET['id']
-            ])
+            new Comment(
+                [
+                    'comment_id_post' => $_GET['id']
+                ]
+            )
         );
 
         require('../app/views/front/postView.php');
@@ -57,7 +61,7 @@ class FrontController {
 
         $commentManager = new CommentManager();
         $addComment = $commentManager->addComment(
-            $addComment = new Comment(
+            new Comment(
                 [
                     'comment_id_post' => $_GET['id'],
                     'comment_author' => $_POST['author'],
@@ -75,22 +79,29 @@ class FrontController {
 
     }
 
-    public static function reportComment() {
+    public static function reportComment($id) {
 
         $commentManager = new CommentManager();
         $reportComment = $commentManager->reportComment(
-            $reportComment = new Comment(
+            new Comment(
                 [
-                    'comment_id' => $_GET['id']
+                    'comment_id' => $id
                 ]
             )
         );
+
+        $idCommentReport = 'idCommentReport-'. $id;
+
+        setcookie($idCommentReport, $id, time() + 365*24*3600, null, null, false, true);
+        
+        //var_dump($id);
 
         if ($reportComment === false) {
             die('Commentaire introuvable.'); // le faire en html
         } else {
             $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php?p=blog';
             header('Location: ' . $referer);
+
         }
     }
 }

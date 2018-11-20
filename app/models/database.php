@@ -5,10 +5,10 @@ use \PDO;
 
 abstract class Database {
 
-    const DB_NAME = 'projet_4_blog';
-    const DB_USER = 'root';
-    const DB_PASS = '';
-    const DB_HOST = 'localhost';
+    const DB_NAME = 'db760479842';
+    const DB_USER = 'dbo760479842';
+    const DB_PASS = 'w3kjMdR45b8Ba6i';
+    const DB_HOST = 'db760479842.hosting-data.io';
 
     private static $pdo;
 

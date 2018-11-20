@@ -1,9 +1,9 @@
 <?php $title = 'Mon Blog'; ?>
 
+<?php ob_start(); ?>
+
     <h1>Post view</h1>
     <p><a href="index.php?p=blog">Retour à la liste des billets</a></p>
-
-<?php ob_start(); ?>
 
         <div>
             <h3> 
@@ -45,11 +45,16 @@
     <?php foreach ($comments as $comment): ?>
 
     <p>
-        <span class="idComment"><?= $comment->getId() ?></span>
-
         De <strong><?= htmlspecialchars(strip_tags($comment->getAuthor())); ?></strong> le <em><?= $comment->getDate(); ?></em> | 
-        <a href="index.php?p=reportComment&amp;id=<?= $comment->getId() ?>"><button class="buttonReport"><i class="fas fa-comment-slash"></i></button></a>
-        <span class="reportTimer"></span>
+
+        <?php if (isset($_COOKIE[$idCommentReport]) && $_COOKIE[$idCommentReport] === $comment->getId()) { ?>
+        
+        <p>Signalé</p>
+
+        <?php } else { 
+            echo $_COOKIE['$idCommentReport'] ?>
+            <a href="index.php?p=reportComment&amp;id=<?= $comment->getId() ?>"><button class="buttonReport"><i class="fas fa-comment-slash"></i></button></a>
+        <?php } ?>
     </p>
 
     <p><?= htmlspecialchars(strip_tags($comment->getComment())); ?></p>

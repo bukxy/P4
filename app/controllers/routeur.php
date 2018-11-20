@@ -11,108 +11,113 @@ use App\controllers\BackController;
 
 try {
     if (isset($_GET['p'])) {
-        if ($_GET['p'] == 'home') {
-            FrontController::home();
-        }
-        elseif ($_GET['p'] == 'blog') {
-            FrontController::listPosts();
-        }
-        elseif ($_GET['p'] == 'post') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                FrontController::post();
-            }
-            else {
-                throw new Exception('Aucun identifiant de post envoyé');
-            }
-        }
-        elseif ($_GET['p'] == 'reportComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                FrontController::reportComment($_GET['id']);
-            }
-            else {
-                throw new Exception('Aucun identifiant de billet envoyé');
-            }
-        }
-        elseif ($_GET['p'] == 'addComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                    FrontController::newComment($_GET['id'], $_POST['author'], $_POST['comment']);
+        switch ($_GET['p']) {
+            case 'home':
+                FrontController::home();
+                break;
+            case 'blog';
+                FrontController::listPosts();
+                break;
+            case 'post';
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    FrontController::post();
                 }
                 else {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
+                    throw new Exception('Aucun identifiant de post envoyé');
                 }
-            }
-            else {
-                throw new Exception('Aucun identifiant de billet envoyé');
-            }
-        }
-        elseif ($_GET['p'] == 'connexion') {
-            FrontController::connexion();
-        }
-        elseif ($_GET['p'] == 'admin') {
-            BackController::adminDashboard();
-        }
-        elseif ($_GET['p'] == 'editPost') {
-            BackController::editPostView();
-        }
-        elseif ($_GET['p'] == 'newPost') {
-            BackController::newPost();
-        }
-        elseif ($_GET['p'] == 'addPost') {
+                break;
+            case 'reportComment';
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    FrontController::reportComment($_GET['id']);
+                }
+                else {
+                    throw new Exception('Aucun identifiant de billet envoyé');
+                }
+                break;
+            case 'addComment';
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    if (!empty($_POST['author']) && !empty($_POST['comment'])) {
+                        FrontController::newComment($_GET['id'], $_POST['author'], $_POST['comment']);
+                    }
+                    else {
+                        throw new Exception('Tous les champs ne sont pas remplis !');
+                    }
+                }
+                else {
+                    throw new Exception('Aucun identifiant de billet envoyé');
+                }
+                break;
+            case 'connexion';
+                FrontController::connexion();
+                break;
+            case 'admin';
+                BackController::adminDashboard();
+                break;
+            case 'editPost';
+                BackController::editPostView();
+                break;
+            case 'newPost';
+                BackController::newPost();
+                break;
+            case 'addPost';
 
-            if (!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {      
-                BackController::addPost($_POST['title'], $_POST['author'], $_POST['post']);
-            }
-            else {
-                throw new Exception('Impossible d\'ajouter cet article');
-            }
-        }
-        elseif ($_GET['p'] == 'updatePost') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_POST['title']) && !empty($_POST['post'])) {
-                    BackController::updatePost($_POST['title'], $_POST['author'], $_POST['post']);
+                if (!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {      
+                    BackController::addPost($_POST['title'], $_POST['author'], $_POST['post']);
                 }
                 else {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
+                    throw new Exception('Impossible d\'ajouter cet article');
                 }
-            }
-            else {
-                throw new Exception('Cet article n\'existe pas');
-            }
-        }
-        elseif ($_GET['p'] == 'deletePost') {
-            BackController::deletePost();
-        }
-        elseif ($_GET['p'] == 'comments') {
-            BackController::getAllComments();
-        }
-        elseif ($_GET['p'] == 'editComment') {
-            BackController::editCommentView();
-        }
-        elseif ($_GET['p'] == 'updateComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_POST['comment'])) {
-                    BackController::updateComment($_POST['comment']);
+                break;
+            case 'updatePost';
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    if (!empty($_POST['title']) && !empty($_POST['post'])) {
+                        BackController::updatePost($_POST['title'], $_POST['author'], $_POST['post']);
+                    }
+                    else {
+                        throw new Exception('Tous les champs ne sont pas remplis !');
+                    }
                 }
                 else {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
+                    throw new Exception('Cet article n\'existe pas');
                 }
-            }
-            else {
-                throw new Exception('Cet article n\'existe pas');
-            }
-        }
-        elseif ($_GET['p'] == 'deleteComment') {
-            BackController::deleteComment();
-        }
-        elseif ($_GET['p'] == 'user') {
-            BackController::user();
-        }
-        elseif ($_GET['p'] == 'checkUserConnexion') {
-            BackController::checkUserConnexion($_POST['pseudo'], $_POST['password']);
-        }
-        elseif ($_GET['p'] == 'disconnect') {
-            BackController::disconnect();
+                break;
+            case 'deletePost';
+                BackController::deletePost();
+                break;
+            case 'comments';
+                BackController::getAllComments();
+                break;
+            case 'editComment';
+                BackController::editCommentView();
+                break;
+            case 'updateComment';
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    if (!empty($_POST['comment'])) {
+                        BackController::updateComment($_POST['comment']);
+                    }
+                    else {
+                        throw new Exception('Tous les champs ne sont pas remplis !');
+                    }
+                }
+                else {
+                    throw new Exception('Cet article n\'existe pas');
+                }
+                break;
+            case 'deleteComment';
+                BackController::deleteComment();
+                break;
+            case 'user';
+                BackController::user();
+                break;
+            case 'checkUserConnexion';
+                BackController::checkUserConnexion($_POST['pseudo'], $_POST['password']);
+                break;
+            case 'disconnect';
+                BackController::disconnect();
+                break;
+            default :
+                FrontController::home();
+            break;
         }
     }
     else {

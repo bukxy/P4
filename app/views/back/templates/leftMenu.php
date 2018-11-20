@@ -13,12 +13,6 @@
           Gestion des Commentaires
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="index.php?p=user">
-          <i class="fas fa-user-circle"></i>
-          Mon Compte
-        </a>
-      </li>
     </ul>
   </div>
 </nav>

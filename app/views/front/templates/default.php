@@ -15,13 +15,14 @@
 
         </div>
 
-    </body>
-
+        
         <footer>
 
             <?php include("footer.php"); ?>
-            <?php include $_SERVER['DOCUMENT_ROOT']."/app/views/scripts.php"; ?>
+            <?php include("../../scripts.php"); ?>
 
         </footer>
+
+    </body>
     
 </html>
