@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-	var events = Object.create(myEvents);
-	events.initialisation();
+	var backEvents = Object.create(back);
+	backEvents.initialisation();
 
 });
