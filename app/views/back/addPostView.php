@@ -11,8 +11,6 @@ if (isset($_SESSION['pseudo'])) { ?>
 
         <form action="index.php?p=addANewPost" method="POST">
 
-            <input class="buttonAdminPost addPost" type="submit" value="Publier l'article" />
-
             <div>
 
                 <label for="title">Titre de l'article :</label><br />
@@ -30,9 +28,11 @@ if (isset($_SESSION['pseudo'])) { ?>
             <div>
 
                 <label for="post">Contenu de l'article :</label><br />
-                <textarea name="post" id="tinyMCE" id="PostContent" placeholder="Mon article..." required></textarea>
+                <textarea name="post" id="tinyMCE" id="PostContent" placeholder="Mon article..."></textarea>
 
             </div>
+
+            <input class="buttonAdminPost addPost" type="submit" value="Publier l'article" />
 
         </form>
 

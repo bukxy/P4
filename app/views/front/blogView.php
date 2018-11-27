@@ -26,7 +26,7 @@
 
             <div class="postInfoButton">
                 <p class="postInfo">
-                    <em>le <?= $post->getDate();?></em> par <?= $post->getAuthor(); ?>
+                    <em>le <?= date('d/m/Y à H:m:s', strtotime($post->getDate()))?></em> par <?= $post->getAuthor(); ?>
                 </p>
 
                 <div class="buttonVoirLaSuite">

@@ -19,31 +19,19 @@ try {
                 FrontController::listPosts();
                 break;
             case 'post';
-
-            if ($_GET['id'] = !null) {
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    FrontController::post();
+                    FrontController::post($_GET['id']);
                 }
                 else {
                     FrontController::NotFound();
                 }
-            } else {
-                echo 'no';
-            }
-
-                //if (isset($_GET['id']) && $_GET['id'] > 0) {
-                //    FrontController::post();
-                //}
-                //else {
-                //    FrontController::NotFound();
-                //}
                 break;
             case 'reportComment';
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
                     FrontController::reportComment($_GET['id']);
                 }
                 else {
-                    throw new Exception('Aucun identifiant de billet envoyé');
+                    FrontController::NotFound();
                 }
                 break;
             case 'addComment';
@@ -52,11 +40,11 @@ try {
                         FrontController::newComment($_GET['id'], $_POST['author'], $_POST['comment']);
                     }
                     else {
-                        throw new Exception('Tous les champs ne sont pas remplis !');
+                        FrontController::NotFound();
                     }
                 }
                 else {
-                    throw new Exception('Aucun identifiant de billet envoyé');
+                    FrontController::NotFound();
                 }
                 break;
             case 'connexion';
@@ -73,10 +61,10 @@ try {
                 break;
             case 'addANewPost';
                 if (!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {      
-                    BackController::addPost($_POST['title'], $_POST['author'], $_POST['post']);
+                    BackController::addANewPost($_POST['title'], $_POST['author'], $_POST['post']);
                 }
                 else {
-                    throw new Exception('Impossible d\'ajouter cet article');
+                    FrontController::NotFound();
                 }
                 break;
             case 'updatePost';
@@ -85,11 +73,11 @@ try {
                         BackController::updatePost($_POST['title'], $_POST['author'], $_POST['post']);
                     }
                     else {
-                        throw new Exception('Tous les champs ne sont pas remplis !');
+                        FrontController::NotFound();
                     }
                 }
                 else {
-                    throw new Exception('Cet article n\'existe pas');
+                    FrontController::NotFound();
                 }
                 break;
             case 'deletePost';
@@ -107,11 +95,11 @@ try {
                         BackController::updateComment($_POST['comment']);
                     }
                     else {
-                        throw new Exception('Tous les champs ne sont pas remplis !');
+                        FrontController::NotFound();
                     }
                 }
                 else {
-                    throw new Exception('Cet article n\'existe pas');
+                    FrontController::NotFound();
                 }
                 break;
             case 'deleteComment';

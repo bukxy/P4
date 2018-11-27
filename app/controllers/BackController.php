@@ -44,11 +44,11 @@ class BackController {
 
         $addPost = $postManager->addPost(
             new Post(array
-                ([
+                (
                     'post_title' => $_POST['title'],
                     'post_author' => $_POST['author'],
                     'post' => $_POST['post']
-                ])
+                )
             )
         );
         

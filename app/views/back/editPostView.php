@@ -24,7 +24,7 @@ if (isset($_SESSION['pseudo'])) { ?>
 
             <br /><br />
             <p>
-                Date de l'article : <em>le <?= $post->getDate();?></em>
+                Date de l'article : <em>le <?= date('d/m/Y à H:m:s', strtotime($post->getDate()))?></em>
             </p>
 
             <label for="title">Auteur :</label>

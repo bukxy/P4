@@ -37,35 +37,37 @@ class FrontController {
 
     }
 
-    public static function post() {
+    public static function post($id) {
 
         $onePost = new PostManager();
         $commentManager = new CommentManager();
 
+
+
         $post = $onePost->getOnePost(
             new Post(
                 [
-                    'post_id' => $_GET['id']
-                ]
-            )
-        );
-        
-        $comments = $commentManager->getCommentsByPostId(
-            new Comment(
-                [
-                    'comment_id_post' => $_GET['id']
+                    'post_id' => $id
                 ]
             )
         );
 
-        require('../app/views/front/postView.php');
+        if ($post) {
+            $comments = $commentManager->getCommentsByPostId(
+                new Comment(
+                    [
+                        'comment_id_post' => $_GET['id']
+                    ]
+                )
+            );
+
+            require('../app/views/front/postView.php');
+        } else {
+            FrontController::NotFound();
+        }
     }
 
     public static function newComment() {
-
-        $dtz = new \DateTimeZone("Europe/Madrid"); //Your timezone
-        $now = new \DateTime(date("Y-m-d H:i:s"), $dtz);
-        //echo $now->format("Y-m-d H:i:s");
 
         $commentManager = new CommentManager();
         $addComment = $commentManager->addComment(
