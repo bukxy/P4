@@ -12,19 +12,31 @@ use App\controllers\BackController;
 try {
     if (isset($_GET['p'])) {
         switch ($_GET['p']) {
-            case 'home':
-                FrontController::home();
+            case 'about':
+                FrontController::about();
                 break;
             case 'blog';
                 FrontController::listPosts();
                 break;
             case 'post';
+
+            if ($_GET['id'] = !null) {
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
                     FrontController::post();
                 }
                 else {
-                    throw new Exception('Aucun identifiant de post envoyé');
+                    FrontController::NotFound();
                 }
+            } else {
+                echo 'no';
+            }
+
+                //if (isset($_GET['id']) && $_GET['id'] > 0) {
+                //    FrontController::post();
+                //}
+                //else {
+                //    FrontController::NotFound();
+                //}
                 break;
             case 'reportComment';
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -59,8 +71,7 @@ try {
             case 'newPost';
                 BackController::newPost();
                 break;
-            case 'addPost';
-
+            case 'addANewPost';
                 if (!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {      
                     BackController::addPost($_POST['title'], $_POST['author'], $_POST['post']);
                 }
@@ -116,12 +127,12 @@ try {
                 BackController::disconnect();
                 break;
             default :
-                FrontController::home();
+                FrontController::NotFound();
             break;
         }
     }
     else {
-        FrontController::home();
+        FrontController::listPosts();
     }
 } catch(Exception $e) {
     echo 'Erreur : ' . $e->getMessage();

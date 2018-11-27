@@ -16,6 +16,7 @@ class PostManager {
         $q->bindValue(':post', $post->getPost());
         
         $q->execute();
+
     }
 
     public function getOnePost(Post $post) {
@@ -30,7 +31,9 @@ class PostManager {
 
         $post = $q->fetch();
 
-        return new Post($post);
+        if ($post) {
+            return new Post($post);
+        }
     }
 
     public function updatePost(Post $post) { 

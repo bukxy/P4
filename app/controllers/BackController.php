@@ -38,19 +38,20 @@ class BackController {
         require('../app/views/back/addPostView.php');
     }
 
-    public static function addPost() {
+    public static function addANewPost() {
 
         $postManager = new PostManager();
 
         $addPost = $postManager->addPost(
-            new Post(
-                [
+            new Post(array
+                ([
                     'post_title' => $_POST['title'],
                     'post_author' => $_POST['author'],
                     'post' => $_POST['post']
-                ]
+                ])
             )
         );
+        
 
         if ($addPost === false) {
 			session_start();
@@ -219,7 +220,7 @@ class BackController {
 		}
 		else {
 			session_start();
-			$_SESSION['notif'] = 'Mot de passe est incorrect !';
+			$_SESSION['notif'] = 'Mot de passe incorrect !';
 			header('Location: index.php?p=connexion');
 		}
     }

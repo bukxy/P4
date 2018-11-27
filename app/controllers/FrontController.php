@@ -16,8 +16,12 @@ require('../app/models/CommentManager.php');
 
 class FrontController {
 
-    public static function home() {
-        require('../app/views/front/indexView.php');
+    public static function about() {
+        require('../app/views/front/aboutView.php');
+    }
+
+    public static function NotFound() {
+        require('../app/views/front/404View.php');
     }
 
     public static function connexion() {
@@ -59,6 +63,10 @@ class FrontController {
 
     public static function newComment() {
 
+        $dtz = new \DateTimeZone("Europe/Madrid"); //Your timezone
+        $now = new \DateTime(date("Y-m-d H:i:s"), $dtz);
+        //echo $now->format("Y-m-d H:i:s");
+
         $commentManager = new CommentManager();
         $addComment = $commentManager->addComment(
             new Comment(
@@ -66,7 +74,6 @@ class FrontController {
                     'comment_id_post' => $_GET['id'],
                     'comment_author' => $_POST['author'],
                     'comment' => $_POST['comment']
-
                 ]
             )
         );

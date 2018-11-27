@@ -3,7 +3,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" rel="stylesheet">
@@ -13,9 +12,15 @@
     <!-- Custom styles for this template -->
     <link href="../public/css/global.css" rel="stylesheet">
     
-    <link href="../public/css/connexion.css" rel="stylesheet">
+    <link href="../public/css/front/connexion.css" rel="stylesheet">
     
-    <link href="../public/css/blog.css" rel="stylesheet">
+    <link href="../public/css/front/blog.css" rel="stylesheet">
+    <link href="../public/css/front/post.css" rel="stylesheet">
+
+    <link href="../public/css/front/404.css" rel="stylesheet">
+
+    <link href="../public/css/front/apropos.css" rel="stylesheet">
+
     
     <title>Jean Forteroche | <?= $title ?></title>
 </head>

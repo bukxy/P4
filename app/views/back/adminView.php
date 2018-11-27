@@ -1,8 +1,6 @@
 <?php
 session_start();
-ob_start(); ?>
-
-<?php
+ob_start();
 
 if (isset($_SESSION['pseudo'])) {
 
@@ -38,10 +36,11 @@ if (isset($_SESSION['pseudo'])) {
 	<?php $title = 'Gestion des articles'; ?>
 	<?php $titleCat = 'Gestion des articles'; ?>
 
-	<a href="index.php?p=newPost"><input id="addPostButton" value="Nouvel article" type="button" /></a>
+	<a href="index.php?p=newPost"><input class="buttonAdminPost addPost" value="Nouvel article" type="button" /></a>
 
 		<?php foreach ($posts as $post): ?>
 
+		<section class="adminListPosts">
 			<div>
 				<h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
 				<p>
@@ -53,9 +52,10 @@ if (isset($_SESSION['pseudo'])) {
 				</p>
 			</div>
 			<div>
-				<a href="index.php?p=deletePost&amp;id=<?= $post->getId() ?>"><input class="deletePost" value="Supprimer l'article" type="button" /></a>
-				<a href="index.php?p=editPost&amp;id=<?= $post->getId() ?>"><input value="Modifier l'article" type="submit" /></a>
+				<a href="index.php?p=deletePost&amp;id=<?= $post->getId() ?>"><input class="buttonAdminPost deletePost" value="Supprimer l'article" type="button" /></a>
+				<a href="index.php?p=editPost&amp;id=<?= $post->getId() ?>"><input class="buttonAdminPost editPost" value="Modifier l'article" type="submit" /></a>
 			</div>
+		</section>
 
 		<?php endforeach;
 

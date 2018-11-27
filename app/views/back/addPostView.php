@@ -7,15 +7,15 @@ if (isset($_SESSION['pseudo'])) { ?>
     <?php $title = 'Nouvel article'; ?>
     <?php $titleCat = 'Ajout d\'un nouvel article'; ?>
 
-    <div class="addPost">
+    <section class="myNewPost">
 
-        <form action="index.php?p=addPost" method="POST">
+        <form action="index.php?p=addANewPost" method="POST">
 
-            <input type="submit" value="Publier l'article" />
+            <input class="buttonAdminPost addPost" type="submit" value="Publier l'article" />
 
             <div>
 
-                <label for="title">Contenu de l'article :</label><br />
+                <label for="title">Titre de l'article :</label><br />
                 <input type="text" name="title" class="editInput" placeholder="Mon titre" required>
                 
             </div>
@@ -36,7 +36,7 @@ if (isset($_SESSION['pseudo'])) { ?>
 
         </form>
 
-    </div>
+    </section>
 
 <?php
 } else {

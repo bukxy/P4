@@ -3,7 +3,7 @@
 
     <?php include("header.php"); ?>
 
-    <body  style="padding-top: 100px;">
+    <body>
 
         <div id="site">
 
