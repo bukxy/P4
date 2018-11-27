@@ -1,0 +1,36 @@
+section#apropos {
+    text-align: center;
+}
+
+#imageJeanF {
+    text-align: center;
+    width: 200px;
+    border-radius: 100%;
+}
+
+section#apropos div, section#apropos div p {
+    text-align: justify;
+    margin: auto;
+    padding: 0 10px;
+    max-width: 1170px;
+    width: 100%;
+    line-height: 25px;
+    margin-bottom: 30px;
+}
+
+section#apropos div p{
+    color: rgba(0,0,0,0.5);
+}
+
+section#apropos h2 {
+    color: rgba(0, 40, 100, 0.6);
+    padding: 0 10px;
+}
+
+@media screen and (max-width: 1420px) {
+    section#apropos div, section#apropos div p {
+        margin: auto;
+        max-width: 900px;
+        width: 100%;
+    }
+}
