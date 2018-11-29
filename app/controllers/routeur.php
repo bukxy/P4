@@ -70,7 +70,7 @@ try {
             case 'updatePost';
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
                     if (!empty($_POST['title']) && !empty($_POST['post'])) {
-                        BackController::updatePost($_POST['title'], $_POST['author'], $_POST['post']);
+                        BackController::updatePost($_GET['id'], $_POST['title'], $_POST['author'], $_POST['post']);
                     }
                     else {
                         FrontController::NotFound();
@@ -105,9 +105,57 @@ try {
             case 'deleteComment';
                 BackController::deleteComment();
                 break;
-            case 'user';
-                BackController::user();
+
+
+
+            case 'usersList';
+                BackController::listUsers();
                 break;
+            case 'newUser';     
+                    BackController::newUser();
+                break;
+            case 'addANewUser';
+                if (!empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password'])) {      
+                    BackController::addANewUser($_POST['pseudo'], $_POST['email'], $_POST['password']);
+                }
+                else {
+                    FrontController::NotFound();
+                }
+                break;
+            case 'editUser';
+                BackController::editUserView();
+                break;
+            case 'updateUser';
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    if (!empty($_POST['pseudo']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+                        BackController::updateUser($_GET['id'], $_POST['pseudo'], $_POST['email'], $_POST['password']);
+                    }
+                    else {
+                        FrontController::NotFound();
+                    }
+                }
+                else {
+                    FrontController::NotFound();
+                }
+                break;
+            case 'deleteUser';
+                BackController::deleteUser();
+                break; 
+                
+                case 'updateComment';
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    if (!empty($_POST['comment'])) {
+                        BackController::updateComment($_POST['comment']);
+                    }
+                    else {
+                        FrontController::NotFound();
+                    }
+                }
+                else {
+                    FrontController::NotFound();
+                }
+                break;
+
             case 'checkUserConnexion';
                 BackController::checkUserConnexion($_POST['pseudo'], $_POST['password']);
                 break;
