@@ -29,11 +29,21 @@ var back = {
 
         });
 
-        $('.mobileMyNavMenu').click(function() {
-            if ($('#myNavMenu').css('display') === 'none') {
-                $('#myNavMenu').css('display', 'block');
+        $('.deleteUser').click(function(e){
+
+            var result = confirm("Etes vous sûr de vouloir supprimer cet utilisateur ?");
+        
+            if (!result) {
+                e.preventDefault();
+            }
+
+        });
+
+        $('.mobileNavMenuBack').click(function() {
+            if ($('.sidebar').css('display') === 'none') {
+                $('.sidebar').css('display', 'block');
             } else {
-                $('#myNavMenu').css('display', 'none');         
+                $('.sidebar').css('display', 'none');         
             }
         });
     }
