@@ -9,6 +9,8 @@ if (isset($_SESSION['pseudo'])) { ?>
 
     <section class="myNewPost">
 
+    <a href='index.php?p=admin'><input class="buttonAdminPost cancel" name="Button" value="Annuler" type="button" /></a>
+
         <form action="index.php?p=addANewPost" method="POST">
 
             <div>
@@ -28,7 +30,7 @@ if (isset($_SESSION['pseudo'])) { ?>
             <div>
 
                 <label for="post">Contenu de l'article :</label><br />
-                <textarea name="post" id="tinyMCE" id="PostContent" placeholder="Mon article..."></textarea>
+                <textarea name="post" id="tinyMCE" id="PostContent"></textarea>
 
             </div>
 
