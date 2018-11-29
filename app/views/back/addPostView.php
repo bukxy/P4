@@ -13,7 +13,7 @@ if (isset($_SESSION['pseudo'])) { ?>
 
         <form action="index.php?p=addANewPost" method="POST">
 
-            <div>
+            <div> 
 
                 <label for="title">Titre de l'article :</label><br />
                 <input type="text" name="title" class="editInput" placeholder="Mon titre" required>
