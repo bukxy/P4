@@ -2,24 +2,46 @@
 session_start();
 ob_start(); 
 
-if (isset($_SESSION['pseudo'])) { ?>
+if (isset($_SESSION['pseudo'])) {
 
-    <?php $title = 'Mon compte'; ?>
-    <?php $titleCat = 'Mon compte'; ?>
+    if (isset($_SESSION['notificationAdminYes'])) {?>
+        
+        <div class="notifAdmin notifAdminGreen">
+            <p>
+                <?= $_SESSION['notificationAdminYes'];
+                unset($_SESSION['notificationAdminYes']); ?>
+            </p>
+        </div>
 
-    <form action="index.php?p=updateUser&amp;id=<?= $user->getId() ?>" method="post">
+    <?php } elseif (isset($_SESSION['notificationAdminNo'])) {?>
+        
+        <div class="notifAdmin notifAdminRed">
+            <p>
+                <?= $_SESSION['notificationAdminNo'];
+                unset($_SESSION['notificationAdminNo']); ?>
+            </p>
+        </div>
 
-        <a href="index.php?p=updateUser&amp;id=<?= $user->getId() ?>"><input name="edit" value="Sauvegarder les modifications" type="submit" /></a>
+    <?php } ?>
 
-        <label for="pseudo">Mon pseudo :</label>
-        <input type="text" name="pseudo" placeholder="pseudo" class="editInput" value="<?= htmlspecialchars($user->getPseudo()); ?>" required>
+    <?php $title = 'Gestion des utilisateurs'; ?>
+    <?php $titleCat = 'Gestion des utilisateurs'; ?>
 
-		<label for="email">Mon email :</label>
-        <input type="text" name="email" placeholder="email" class="editInput" value="<?= htmlspecialchars($user->getEmail()); ?>" required>
+    <a href="index.php?p=newUser"><input class="buttonAdminPost addPost" value="Nouvel Utilisateur" type="button" /></a>
 
-    </form>
+    <?php foreach ($users as $user): ?>
 
-<?php
+        <section class="adminListPosts">
+            <p>Pseudo : <?= htmlspecialchars($user->getPseudo());?></p>
+            <p>Email : <?= htmlspecialchars($user->getEmail());?></p>
+            <div>
+                <a href="index.php?p=deleteUser&amp;id=<?= $user->getId() ?>"><input class="buttonAdminPost deleteUser" value="Supprimer l'utilisateur" type="button" /></a>
+                <a href="index.php?p=editUser&amp;id=<?= $user->getId() ?>"><input class="buttonAdminPost editUser" value="Modifier l'utilisateur" type="submit" /></a>
+            </div>
+        </section>
+
+    <?php endforeach;
+
 } else {
 	header('Location: index.php?p=connexion');
 } ?>
