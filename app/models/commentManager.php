@@ -31,15 +31,18 @@ class CommentManager {
 
         $comment = $q->fetch(PDO::FETCH_ASSOC);
 
-        return new Comment($comment);
+        if ($comment) {
+            return new Comment($comment);
+        }
     }
 
     public function updateComment(Comment $comment) { 
         $q = Database::getPDO()->prepare('UPDATE comments 
-        SET comment = :comment
+        SET comment_author = :author, comment = :comment
         WHERE comment_id = :id');
 
         $q->bindValue(':comment', $comment->getComment());
+        $q->bindValue(':author', $comment->getAuthor());
 
         $q->bindValue(':id', $comment->getId());
 
