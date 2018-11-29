@@ -42,8 +42,6 @@ class FrontController {
         $onePost = new PostManager();
         $commentManager = new CommentManager();
 
-
-
         $post = $onePost->getOnePost(
             new Post(
                 [
@@ -56,7 +54,7 @@ class FrontController {
             $comments = $commentManager->getCommentsByPostId(
                 new Comment(
                     [
-                        'comment_id_post' => $_GET['id']
+                        'comment_id_post' => $id
                     ]
                 )
             );
@@ -81,7 +79,7 @@ class FrontController {
         );
 
         if ($addComment === false) {
-            die('Impossible d\'ajouter le commentaire !');
+            FrontController::NotFound();
         } else {
             header('Location: index.php?p=post&id=' . $_GET['id']);
         }
@@ -102,11 +100,9 @@ class FrontController {
         $idCommentReport = 'idCommentReport-'. $id;
 
         setcookie($idCommentReport, $id, time() + 365*24*3600, null, null, false, true);
-        
-        //var_dump($id);
 
         if ($reportComment === false) {
-            die('Commentaire introuvable.'); // le faire en html
+            FrontController::NotFound();
         } else {
             $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php?p=blog';
             header('Location: ' . $referer);
