@@ -25,5 +25,3 @@
         ]
     });
 </script>
-
-<p>&copy; Jean Forteroche 2017-2018</p>
