@@ -7,7 +7,8 @@ use \PDO;
 class UserManager {
 
     public function addUser(User $user) {
-        $q = Database::getPDO()->prepare('INSERT INTO users(pseudo, email, users.password) 
+
+        $q = Database::getPDO()->prepare('INSERT INTO users(user_pseudo, user_email, user_password) 
         VALUES(:pseudo, :email, :pass)');
 
         $q->bindValue(':pseudo', $user->getPseudo());
@@ -18,9 +19,10 @@ class UserManager {
     }
 
     public function getOneUser(User $user) {
-        $q = Database::getPDO()->prepare('SELECT id, pseudo, email
+
+        $q = Database::getPDO()->prepare('SELECT users.user_id, user_pseudo, user_email
         FROM users 
-        WHERE id = :id');
+        WHERE user_id = :id');
 
         $q->bindValue(':id', $user->getId());
 
@@ -28,17 +30,22 @@ class UserManager {
 
         $user = $q->fetch();
 
-        return new User($user);
+        if($user) {
+            return new User($user);
+        }
     }
 
     public function updateUser(User $user) { 
+        
         $q = Database::getPDO()->prepare('UPDATE users 
-        SET userId = :id, userPseudo = :pseudo, userEmail = :email 
-        WHERE id = :id');
+        SET user_pseudo = :pseudo, user_email = :email, user_password = :pass
+        WHERE users.user_id = :id');
 
-        $q->bindValue(':id', $user->userId(), PDO::PARAM_INT);
-        $q->bindValue(':pseudo', $user->userAuthor());
-        $q->bindValue(':email', $user->userEmail());
+        $q->bindValue(':pseudo', $user->getPseudo());
+        $q->bindValue(':email', $user->getEmail());
+        $q->bindValue(':pass', $user->getPassword());
+
+        $q->bindValue(':id', $user->getId());
     
         $q->execute();    
     }
@@ -46,7 +53,7 @@ class UserManager {
     public function deleteUser(User $user) {
         
         $q = Database::getPDO()->prepare('DELETE FROM users
-        WHERE id = :id');
+        WHERE user_id = :id');
 
         $q->bindValue(':id', $user->getId());
 
@@ -57,10 +64,10 @@ class UserManager {
 
         $users = [];
 
-        $q = Database::getPDO()->query('SELECT pseudo, email FROM users');
+        $q = Database::getPDO()->query('SELECT * FROM users ORDER BY user_id ASC');
 
-        while ($datas = $q-> fetch(PDO::FETCH_ASSOC)){
-            $users[] = new user($datas);
+        while ($datas = $q-> fetch()){
+            $users[] = new User($datas);
         }
 
         return $users;
@@ -68,8 +75,8 @@ class UserManager {
     
     public function checkUserConnexion(User $user) {
 
-        $q = Database::getPDO()->prepare('SELECT id, email, users.password FROM users 
-        WHERE pseudo = :pseudo');
+        $q = Database::getPDO()->prepare('SELECT user_id, user_email, user_password FROM users 
+        WHERE user_pseudo = :pseudo');
 
         $q->bindValue(':pseudo', $user->getPseudo());
 
