@@ -44,7 +44,7 @@ if (isset($_SESSION['pseudo'])) {
 			<div>
 				<h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
 				<p>
-					<em>le <?= date('d/m/Y à H:m:s', strtotime($post->getDate()))?></em> par <?= $post->getAuthor(); ?>
+					<em>le <?= date('d/m/Y à H:i', strtotime($post->getDate()))?></em> par <?= $post->getAuthor(); ?>
 				</p>
 					
 				<p>
