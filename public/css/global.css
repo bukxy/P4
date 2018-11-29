@@ -93,10 +93,14 @@ div.mobileMyNavMenu {
     position: absolute;
 }
 
+.backToBlog {
+    margin: 0 0 30px 42px;
+}
+
 footer {
     text-align: center;
     margin: 30px 0 0 0;
-    padding-top: 12px;
+    padding: 12px 0 0 0;
     height: 50px;
     border-top: 1px solid rgba(0,0,0,0.2) ;
 }

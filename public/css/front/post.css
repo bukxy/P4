@@ -8,23 +8,37 @@
     box-shadow: 2px 2px 10px;
 }
 
+.onePostContainer p {
+    background-color: transparent!important;
+}
+
 .myPost {
     color: rgba(0,0,0,0.1);
+}
+
+.barre {
+    width: 200px;
+    margin: 5px 30px;
+    border-bottom: 2px solid rgba(41, 84, 201, 0.3);
+    z-index: 0;
 }
 
 .newComment {
     padding: 5px;
     border-radius: 10px;
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     height: 325px;
     background-color: rgba(41, 106, 182, 0.2);
+    margin-bottom: 15px;
 }
 
 .newComment textarea {
     max-width: 396px;
-    width: 391px;
+    width: 100%;
     height: 150px;
     max-height: 150px;
+    resize: none;
 }
 
 .comments {
@@ -33,18 +47,22 @@
     display: flex;
     margin: auto;
     justify-content: space-between;
-    
+    flex-wrap: wrap;
+}
+
+.comments h3 {
+    text-align: center;
 }
 
 .myCommentContainer {
     border: 1px solid rgba(0, 0, 0, 0.5);
     background-color: #d9d9d9;
-    width: 450px;
-}
-
-.myCommentContainer:not(:last-child) {
+    max-width: 450px;
+    min-width: 285px;
+    width: 100%;
     margin: 0 0 10px 0;
     border-radius: 5px;
+    word-wrap: break-word;
 }
 
 .commentInfo {
