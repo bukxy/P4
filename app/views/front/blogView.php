@@ -20,13 +20,12 @@
             <div class="postContent">
                 <p>
                     <?= substr(($post->getPost()), ' 0', 400); ?>
-                    <br />
                 </p>
             </div>
 
             <div class="postInfoButton">
                 <p class="postInfo">
-                    <em>le <?= date('d/m/Y à H:m:s', strtotime($post->getDate()))?></em> par <?= $post->getAuthor(); ?>
+                    <em>le <?= date('d/m/Y à H:i', strtotime($post->getDate()))?></em> par <?= $post->getAuthor(); ?>
                 </p>
 
                 <div class="buttonVoirLaSuite">
