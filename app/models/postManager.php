@@ -16,7 +16,6 @@ class PostManager {
         $q->bindValue(':post', $post->getPost());
         
         $q->execute();
-
     }
 
     public function getOnePost(Post $post) {
