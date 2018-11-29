@@ -60,7 +60,7 @@ class Comment {
         }
     }
     public function setComment_author($author) {
-        if (is_string($author) && strlen($author) <= 12) {
+        if (is_string($author) && strlen($author) <= 15) {
             $this->comment_author = $author;
         }
     }
