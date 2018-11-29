@@ -5,6 +5,7 @@ namespace App\controllers;
 use App\models\PostManager;
 use App\models\CommentManager;
 use App\models\UserManager;
+
 use App\models\Post;
 use App\models\Comment;
 use App\models\User;
@@ -31,7 +32,11 @@ class BackController {
             )
         );
 
-        require('../app/views/back/editPostView.php');
+        if ($post) {
+            require('../app/views/back/editPostView.php');
+        } else {
+            FrontController::NotFound();
+        }
     }
 
     public static function newPost() {
@@ -68,13 +73,13 @@ class BackController {
 
     }
 
-    public static function updatePost() {
+    public static function updatePost($id) {
 
         $postManager = new PostManager();
         $updatePost = $postManager->updatePost(
             new Post(
                 [
-                    'post_id' => $_GET['id'],
+                    'post_id' => $id,
                     'post_title' => $_POST['title'],
                     'post_author' => $_POST['author'],
                     'post' => $_POST['post']
@@ -140,7 +145,12 @@ class BackController {
             )
         );
 
-        require('../app/views/back/editComment.php');
+        if ($comment) {
+            require('../app/views/back/editCommentView.php');
+        } else {
+            FrontController::NotFound();
+        }
+   
     }
 
     public static function updateComment() {
@@ -150,15 +160,23 @@ class BackController {
             new Comment(
                 [
                     'comment_id' => $_GET['id'],
+                    'comment_author' => $_POST['author'],
                     'comment' => $_POST['comment']
                 ]
             )
         );
 
         if ($editComment === false) {
-            die('Impossible de modifier le commentaire !');
+			session_start();
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de l'enregistrement des modifications...";
+			
+			header('Location: index.php?p=comments');		
         } else {
-            header('Location: index.php?p=comments');
+			session_start();
+			$_SESSION['postTitle'] = $_POST['author'];
+			$_SESSION['notificationAdminYes'] = "Les modifications apportés au commentaire de [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] ont bien été prise en compte";
+					
+            header('Location: index.php?p=comments');			
         }
 
     }
@@ -175,35 +193,170 @@ class BackController {
         );
 
         if ($deleteComment === false) {
-            die('Impossible de supprimer le commentaire !');
+			session_start();
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la suppression du commentaire...";	
+			header('Location: index.php?p=comments');		
         } else {
-            header('Location: index.php?p=comments');
+			session_start();
+			$_SESSION['notificationAdminYes'] = "Vous avez supprimer ce commentaire avec succcé !";
+					
+            header('Location: index.php?p=comments');			
         }
 
     }
 
-    public static function user() {
+
+
+    /***************************************************************
+     * 
+     * 
+     * 
+     *                   GESTION UTILISATEURS 
+     * 
+     * 
+     * 
+    ***************************************************************/
+
+    public static function listUsers() {
+
+        $userManager = new UserManager();
+        $users = $userManager->getAllUsers();
+
+        require('../app/views/back/userView.php');
+    }
+
+    public static function newUser() {
+        require('../app/views/back/addUserView.php');
+    }
+
+    public static function addANewUser() {
+
         $userManager = new UserManager();
 
-        $user = $userManager->getOneUser(            
+        $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $addUser = $userManager->addUser(
+            new User(array
+                (
+                    'user_pseudo' => $_POST['pseudo'],
+                    'user_email' => $_POST['email'],
+                    'user_password' => $pass
+                )
+            )
+        );
+        
+        if ($addUser === false) {
+			session_start();
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la création de l'utilisateur...";
+			
+			header('Location: index.php?p=usersList');		
+        } else {
+			session_start();
+			$_SESSION['postTitle'] = $_POST['pseudo'];
+			$_SESSION['notificationAdminYes'] = "L'utilisateur [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] à bien été créer !";
+					
+            header('Location: index.php?p=usersList');			
+        }
+
+    }
+
+    public static function editUserView() {
+
+        $oneUser = new UserManager();
+
+        $user = $oneUser->getOneUser(            
             new User(
                 [
-                    'pseudo' => $_GET['pseudo']
+                    'user_id' => $_GET['id']
                 ]
             )
         );
 
-        require('../app/views/back/userView.php');
+        if ($user) {
+            require('../app/views/back/editUserView.php');
+        } else {
+            FrontController::NotFound();
+        }
+   
     }
-    
+
+    public static function updateUser($id) {
+
+        $userManager = new UserManager();
+
+        $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $updateuser = $userManager->updateUser(
+            new User(
+                [
+                    'user_id' => $id,
+                    'user_pseudo' => $_POST['pseudo'],
+                    'user_email' => $_POST['email'],
+                    'user_password' => $pass
+                ]
+            )
+        );
+
+        if ($updatePost === false) {
+			session_start();
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de l'enregistrement des modifications...";
+			
+			header('Location: index.php?p=usersList');		
+        } else {
+			session_start();
+			$_SESSION['postTitle'] = $_POST['title'];
+			$_SESSION['notificationAdminYes'] = "Les modifications apportés à l'article [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] ont bien été prise en compte";
+					
+            header('Location: index.php?p=usersList');			
+        }
+    }
+
+    public static function deleteUser() {
+
+        $userManager = new UserManager();
+        $deleteUser = $userManager->deleteUser(
+            new User(
+                [
+                    'user_id' => $_GET['id']
+                ]
+            )
+        );
+
+        if ($deleteUser === false) {
+			session_start();
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la suppression de l'utilisateur...";	
+			header('Location: index.php?p=usersList');		
+        } else {
+			session_start();
+			$_SESSION['notificationAdminYes'] = "Vous avez supprimer cet utilisateur avec succcé !";
+					
+            header('Location: index.php?p=usersList');			
+        }
+
+    }
+
+
+
+    /***************************************************************
+     * 
+     * 
+     * 
+     *                 CONNEXION / DECONNEXION 
+     * 
+     * 
+     * 
+    ***************************************************************/
+   
+
+
     public static function checkUserConnexion() {
 
         $userManager = new UserManager();
         $user = $userManager->checkUserConnexion(
             new User(
                 [
-                    'pseudo' => $_POST['pseudo'],
-                    'password' => $_POST['password']
+                    'user_pseudo' => $_POST['pseudo'],
+                    'user_password' => $_POST['password']
                 ]
             )
         );
