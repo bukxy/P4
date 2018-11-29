@@ -187,43 +187,170 @@ input:hover {
   border: none;
 }
 
-.addPost, .saveEditPost {
+.addPost, .saveEdit {
   background-color: rgba(0,150,0,0.5);
   margin: 0 auto 50px auto;
 }
 
-.addPost:hover, .saveEditPost:hover {
+.addPost:hover, .saveEdit:hover {
   background-color: rgba(0,150,0,0.7);
 }
 
-.deletePost, .cancelPost, .delComment {
+.deletePost, .cancel, .delComment, .deleteUser, .deleteComment {
   background-color: rgba(150,0,0,0.5);
 }
 
-.deletePost:hover, .cancelPost:hover, .delComment:hover {
+.deletePost:hover, .cancel:hover, .delComment:hover, .deleteUser:hover, .deleteComment:hover {
   background-color: rgba(150,0,0,0.7);
 }
 
-.editPost, .editComment {
+.editPost, .editComment, .editUser, .editComment {
   background-color: rgba(0,0,150,0.5);
 }
 
-.editPost:hover, .editComment:hover {
+.editPost:hover, .editComment:hover, .editUser:hover, .editComment:hover {
   background-color: rgba(0,0,150,0.7);
 }
 
-.myNewPost > form > div:not(:first-child){
-  margin: 0 0 30px 0;
+.cancel, .deleteUser, .deletePost {
+  margin: 0 0 5px 0;
+}
+
+.myNewPost > form > div {
+  margin: 30px 0;
+}
+
+.myNewPost .date {
+  font-size: 18px;
 }
 
 .myNewPost label {
   font-size: 20px;
 }
 
-@media screen and (max-width: 990px) {
+.mobileNavMenuBack {
+  display: none;
+}
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.commentList {
+  overflow-x:auto;
+
+  width: 100%;
+}
+
+.commentList table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.commentList td, .commentList th, .commentList tr {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.commentList th, .commentList td {
+  text-align: left;
+  padding: 8px;
+}
+
+.commentList th {
+  text-align: center;
+}
+
+.commentList td {
+  max-width: 400px; 
+}
+
+.commentList td:nth-child(4) {
+  font-weight: bold;
+  text-align: center;
+}
+
+.commentList td:nth-child(2), .commentList td:nth-child(3) {
+  min-width: 200px; 
+}
+
+
+.commentList td:nth-child(3), td:nth-child(5) {
+  text-align: center;
+}
+
+.commentList table tr td div{
+  margin: 5px 0;
+}
+
+.mainPerso {
+  width: 100%;
+}
+
+@media screen and (max-width: 992px) {
 
   .ml-sm-auto, .mx-sm-auto {
-    margin-left: 0
+    margin-left: 160px!important;
   }
 
+  .nav-link {
+    padding: 0.5rem 0.5rem;
+  }
+
+}
+
+@media screen and (max-width: 575px) {
+
+  .ml-sm-auto, .mx-sm-auto {
+    margin-left: 0!important;
+  }
+
+  .ml-sm-auto {
+    padding: 60px 5px 0 5px;;
+  }
+
+  body {
+    padding-top: 30px;
+  }
+
+  .mobileNavMenuBack {
+    display: block;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .sidebar {
+    display: none;
+    height: 185px;
+    margin-top: 40px;
+    max-width: 100%;
+    font-size: 18px;
+  }
+
+  .col-9 {
+    max-width: 100%;
+  }
+
+  .adminListPosts {
+    max-width: 1170px;
+    width: 100%;
+    margin: 0 auto 50px auto;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 1px 1px 1px;
+  }
+
+  .mainPero {
+    width: 100%;
+  }
 }
