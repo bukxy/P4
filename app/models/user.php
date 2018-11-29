@@ -4,10 +4,10 @@ namespace App\models;
 
 class User {
 
-    private $id;
-    private $pseudo;
-    private $email;
-    private $password;
+    private $user_id;
+    private $user_pseudo;
+    private $user_email;
+    private $user_password;
 
     public function __construct(array $datas)
     {
@@ -25,38 +25,38 @@ class User {
     }
 
     public function getId() {
-        return $this->id;
+        return $this->user_id;
     }
     public function getPseudo() {
-        return $this->pseudo;
+        return $this->user_pseudo;
     }
     public function getEmail() {
-        return $this->email;
+        return $this->user_email;
     }
     public function getPassword() {
-        return $this->password;
+        return $this->user_password;
     }
 
-    public function setId($id) {
+    public function setUser_id($id) {
         $id = (int) $id;
 
         if ($id >0) {
-            $this->id = $id;
+            $this->user_id = $id;
         }
     }
-    public function setPseudo($pseudo) {
-        if (is_string($pseudo)) {
-            $this->pseudo = $pseudo;
+    public function setUser_pseudo($pseudo) {
+        if (is_string($pseudo) && strlen($pseudo) <= 15) {
+            $this->user_pseudo = $pseudo;
         }
     }
-    public function setEmail($email) {
+    public function setUser_email($email) {
         if (is_string($email)) {
-            $this->email = $email;
+            $this->user_email = $email;
         }
     }
-    public function setPassword($password) {
+    public function setUser_password($password) {
         if (is_string($password)) {
-            $this->password = $password;
+            $this->user_password = $password;
         }
     }
 }
