@@ -4,8 +4,8 @@ ob_start();
 
 if (isset($_SESSION['pseudo'])) { ?>
 
-    <?php $title = 'Nouvel article'; ?>
-    <?php $titleCat = 'Ajout d\'un nouvel article'; ?>
+    <?php $title = 'Nouveau chapitre'; ?>
+    <?php $titleCat = 'Ajout d\'un nouveau chapitre'; ?>
 
     <section class="myNewPost">
 
@@ -13,28 +13,30 @@ if (isset($_SESSION['pseudo'])) { ?>
 
         <form action="index.php?p=addANewPost" method="POST">
 
-            <div> 
+        <input name="userId" value="<?= $user->getId(); ?>" type="hidden" />
 
-                <label for="title">Titre de l'article :</label><br />
+            <div>
+
+                <label for="title">Titre du chapitre :</label><br />
                 <input type="text" name="title" class="editInput" placeholder="Mon titre" required>
                 
             </div>
 
             <div>
 
-                <label for="author">Auteur l'article :</label><br />
+                <label for="author">Auteur du chapitre :</label><br />
                 <input type="text" name="author" class="editInput" placeholder="Auteur" required>
 
             </div>
 
             <div>
 
-                <label for="post">Contenu de l'article :</label><br />
+                <label for="post">Contenu du chapitre :</label><br />
                 <textarea name="post" id="tinyMCE" id="PostContent"></textarea>
 
             </div>
 
-            <input class="buttonAdminPost addPost" type="submit" value="Publier l'article" />
+            <input class="buttonAdminPost addPost" type="submit" value="Publier le chapitre" />
 
         </form>
 
