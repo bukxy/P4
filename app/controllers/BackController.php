@@ -40,7 +40,24 @@ class BackController {
     }
 
     public static function newPost() {
-        require('../app/views/back/addPostView.php');
+
+        session_start();
+
+        $userManager = new UserManager();
+
+        $user = $userManager->getInfoCurrentUser(
+            new User(array
+                (
+                    'user_pseudo' => $_SESSION['pseudo']
+                )
+            )
+        );
+
+        if ($user) {
+            require('../app/views/back/addPostView.php');
+        } else {
+            FrontController::NotFound();
+        }
     }
 
     public static function addANewPost() {
@@ -50,6 +67,7 @@ class BackController {
         $addPost = $postManager->addPost(
             new Post(array
                 (
+                    'post_user_id' => $_POST['userId'],
                     'post_title' => $_POST['title'],
                     'post_author' => $_POST['author'],
                     'post' => $_POST['post']
@@ -57,16 +75,15 @@ class BackController {
             )
         );
         
-
         if ($addPost === false) {
 			session_start();
-			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la création de l'article...";
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la création du chapitre...";
 			
 			header('Location: index.php?p=admin');		
         } else {
 			session_start();
 			$_SESSION['postTitle'] = $_POST['title'];
-			$_SESSION['notificationAdminYes'] = "L'article [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] à bien été créer !";
+			$_SESSION['notificationAdminYes'] = "Le chapitre [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] à bien été créer !";
 					
             header('Location: index.php?p=admin');			
         }
@@ -95,7 +112,7 @@ class BackController {
         } else {
 			session_start();
 			$_SESSION['postTitle'] = $_POST['title'];
-			$_SESSION['notificationAdminYes'] = "Les modifications apportés à l'article [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] ont bien été prise en compte";
+			$_SESSION['notificationAdminYes'] = "Les modifications apportés au chapitre  [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] ont bien été prise en compte";
 					
             header('Location: index.php?p=admin');			
         }
@@ -104,6 +121,7 @@ class BackController {
     public static function deletePost() {
 
         $postManager = new PostManager();
+
         $deletePost = $postManager->deletePost(
             new Post(
                 [
@@ -114,15 +132,14 @@ class BackController {
 
         if ($deletePost === false) {
 			session_start();
-			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la suppression de l'article...";	
+			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la suppression du chapitre...";	
 			header('Location: index.php?p=admin');		
         } else {
 			session_start();
-			$_SESSION['notificationAdminYes'] = "Vous avez supprimer cette article avec succcé !";
+			$_SESSION['notificationAdminYes'] = "Vous avez supprimer ce chapitre avec succcé !";
 					
             header('Location: index.php?p=admin');			
         }
-
     }
 
     public static function getAllComments() {
@@ -304,14 +321,23 @@ class BackController {
 			header('Location: index.php?p=usersList');		
         } else {
 			session_start();
-			$_SESSION['postTitle'] = $_POST['title'];
-			$_SESSION['notificationAdminYes'] = "Les modifications apportés à l'article [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] ont bien été prise en compte";
+			$_SESSION['postTitle'] = $_POST['pseudo'];
+			$_SESSION['notificationAdminYes'] = "Les modifications apportés à l'utilisateur [ <span class='strongStyle'>" . $_SESSION['postTitle'] . "</span> ] ont bien été prit en compte";
 					
             header('Location: index.php?p=usersList');			
         }
     }
 
     public static function deleteUser() {
+
+        $postManager = new PostManager();
+        $updatePost = $postManager->updatePostAfterDeleteUser(
+            new Post(
+                [
+                    'post_user_id' => $_GET['id']
+                ]
+            )
+        );
 
         $userManager = new UserManager();
         $deleteUser = $userManager->deleteUser(
@@ -323,13 +349,13 @@ class BackController {
         );
 
         if ($deleteUser === false) {
-			session_start();
-			$_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la suppression de l'utilisateur...";	
-			header('Location: index.php?p=usersList');		
+            session_start();
+            $_SESSION['notificationAdminNo'] = "Un problème est survenu lors de la suppression de l'utilisateur...";	
+            header('Location: index.php?p=usersList');		
         } else {
-			session_start();
-			$_SESSION['notificationAdminYes'] = "Vous avez supprimer cet utilisateur avec succcé !";
-					
+            session_start();
+            $_SESSION['notificationAdminYes'] = "Vous avez supprimer cet utilisateur avec succcé !";
+                    
             header('Location: index.php?p=usersList');			
         }
 
