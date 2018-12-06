@@ -35,7 +35,9 @@ if (isset($_SESSION['pseudo'])) {
             <p>Pseudo : <?= htmlspecialchars($user->getPseudo());?></p>
             <p>Email : <?= htmlspecialchars($user->getEmail());?></p>
             <div>
-                <a href="index.php?p=deleteUser&amp;id=<?= $user->getId() ?>"><input class="buttonAdminPost deleteUser" value="Supprimer l'utilisateur" type="button" /></a>
+                <?php if ($user->getId() >= 2) { ?>
+                    <a href="index.php?p=deleteUser&amp;id=<?= $user->getId() ?>"><input class="buttonAdminPost deleteUser" value="Supprimer l'utilisateur" type="button" /></a>
+                <?php } ?>
                 <a href="index.php?p=editUser&amp;id=<?= $user->getId() ?>"><input class="buttonAdminPost editUser" value="Modifier l'utilisateur" type="submit" /></a>
             </div>
         </section>
