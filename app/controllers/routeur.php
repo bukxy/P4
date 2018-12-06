@@ -60,8 +60,8 @@ try {
                 BackController::newPost();
                 break;
             case 'addANewPost';
-                if (!empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {      
-                    BackController::addANewPost($_POST['title'], $_POST['author'], $_POST['post']);
+                if (!empty($_POST['userId']) && !empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {      
+                    BackController::addANewPost($_POST['userId'],$_POST['title'], $_POST['author'], $_POST['post']);
                 }
                 else {
                     FrontController::NotFound();
@@ -105,9 +105,6 @@ try {
             case 'deleteComment';
                 BackController::deleteComment();
                 break;
-
-
-
             case 'usersList';
                 BackController::listUsers();
                 break;
@@ -141,8 +138,7 @@ try {
             case 'deleteUser';
                 BackController::deleteUser();
                 break; 
-                
-                case 'updateComment';
+            case 'updateComment';
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
                     if (!empty($_POST['comment'])) {
                         BackController::updateComment($_POST['comment']);
