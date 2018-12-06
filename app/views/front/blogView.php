@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 
-    <h1 class="h1">Mes derniers articles</h1>
+    <h1 class="h1">Mes derniers chapitres</h1>
         
     <div class="lignesoush1">
         <div class="rondh1bleu left"></div>
@@ -25,7 +25,14 @@
 
             <div class="postInfoButton">
                 <p class="postInfo">
-                    <em>le <?= date('d/m/Y à H:i', strtotime($post->getDate()))?></em> par <?= $post->getAuthor(); ?>
+
+                    <?php if ($post->getEdit_date() !== NULL) { ?>
+                        (édité)<em> le <?= date('d/m/Y à H:i', strtotime($post->getEdit_date()))?></em>
+                    <?php } else { ?>
+                        <em>le <?= date('d/m/Y à H:i', strtotime($post->getDate()))?></em>
+                    <?php } ?> 
+
+                    par <?= $post->getAuthor(); ?>
                 </p>
 
                 <div class="buttonVoirLaSuite">
