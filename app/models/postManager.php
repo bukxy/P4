@@ -8,9 +8,10 @@ class PostManager {
 
     public function addPost(Post $post) {
 
-        $q = Database::getPDO()->prepare('INSERT INTO posts(post_title, post_author, post_date, post) 
-        VALUES(:post_title, :post_author, NOW(), :post)');
+        $q = Database::getPDO()->prepare('INSERT INTO posts(post_user_id, post_title, post_author, post_date, post) 
+        VALUES(:post_user_id, :post_title, :post_author, NOW(), :post)');
 
+        $q->bindValue(':post_user_id', $post->getUser_id());
         $q->bindValue(':post_title', $post->getTitle());
         $q->bindValue(':post_author', $post->getAuthor());
         $q->bindValue(':post', $post->getPost());
@@ -38,7 +39,7 @@ class PostManager {
     public function updatePost(Post $post) { 
 
         $q = Database::getPDO()->prepare('UPDATE posts 
-        SET post_title = :post_title, post_author = :post_author, post = :post 
+        SET post_title = :post_title, post_author = :post_author, post_edit_date = NOW(), post = :post 
         WHERE post_id = :id');
 
         $q->bindValue(':post_title', $post->getTitle());
@@ -56,6 +57,17 @@ class PostManager {
         WHERE post_id = :id');
 
         $q->bindValue(':id', $post->getId());
+
+        $q->execute();
+    }
+
+    public function updatePostAfterDeleteUser(Post $post) { 
+
+        $q = Database::getPDO()->prepare('UPDATE posts 
+        SET post_user_id = 1
+        WHERE post_user_id = :id');
+
+        $q->bindValue(':id', $post->getUser_id());
 
         $q->execute();
     }
