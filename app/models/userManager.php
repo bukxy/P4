@@ -93,4 +93,21 @@ class UserManager {
             header('Location: index.php?p=connexion');
         }
     }
+
+    public function getInfoCurrentUser(User $user) {
+
+        $q = Database::getPDO()->prepare('SELECT user_id, user_pseudo
+        FROM users 
+        WHERE user_pseudo = :pseudo');
+
+        $q->bindValue(':pseudo', $user->getPseudo());
+
+        $q->execute();
+
+        $user = $q->fetch();
+
+        if($user) {
+            return new User($user);
+        }
+    }
 }
