@@ -4,8 +4,8 @@ ob_start();
 
 if (isset($_SESSION['pseudo'])) { ?>
 
-    <?php $title = 'Modification de l\'article'; ?>
-    <?php $titleCat = 'Modification de l\'article'; ?>
+    <?php $title = 'Modification du chapitre'; ?>
+    <?php $titleCat = 'Modification du chapitre'; ?>
 
     <section class="myNewPost">
 
@@ -17,6 +17,7 @@ if (isset($_SESSION['pseudo'])) { ?>
                 <input name="id" value="<?= $post->getId() ?>" type="hidden" />
                 <a href="index.php?p=updatePost&amp;id=<?= $post->getId() ?>"><input class="buttonAdminPost saveEdit" name="edit" value="Sauvegarder les modifications" type="submit" /></a>
             </div>
+
 
             <div>
 
@@ -43,7 +44,6 @@ if (isset($_SESSION['pseudo'])) { ?>
             </div>
 
 
-
             <div>
 
                 <label for="post">Contenu :</label>
@@ -52,7 +52,6 @@ if (isset($_SESSION['pseudo'])) { ?>
                 </textarea>
 
             </div>
-
 
         </form>
 
