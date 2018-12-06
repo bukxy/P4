@@ -4,7 +4,7 @@
       <li class="nav-item">
         <a class="nav-link" href="index.php?p=admin">
           <i class="fas fa-file-alt"></i>
-          Articles
+          Chapitres
         </a>
       </li>
       <li class="nav-item">
