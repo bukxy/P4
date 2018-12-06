@@ -33,10 +33,10 @@ if (isset($_SESSION['pseudo'])) {
 
 	<?php } ?>
 
-	<?php $title = 'Gestion des articles'; ?>
-	<?php $titleCat = 'Gestion des articles'; ?>
+	<?php $title = 'Gestion des chapitres'; ?>
+	<?php $titleCat = 'Gestion des chapitres'; ?>
 
-	<a href="index.php?p=newPost"><input class="buttonAdminPost addPost" value="Nouvel article" type="button" /></a>
+	<a href="index.php?p=newPost"><input class="buttonAdminPost addPost" value="Nouveau chapitre" type="button" /></a>
 
 		<?php foreach ($posts as $post): ?>
 
@@ -44,7 +44,13 @@ if (isset($_SESSION['pseudo'])) {
 			<div>
 				<h3> <?= htmlspecialchars($post->getTitle()); ?> </h3>
 				<p>
-					<em>le <?= date('d/m/Y à H:i', strtotime($post->getDate()))?></em> par <?= $post->getAuthor(); ?>
+					<?php if ($post->getEdit_date() !== NULL) { ?>
+						(édité)<em> le <?= date('d/m/Y à H:i', strtotime($post->getEdit_date()))?></em>
+					<?php } else { ?>
+						<em>le <?= date('d/m/Y à H:i', strtotime($post->getDate()))?></em>
+					<?php } ?>
+
+					par <?= $post->getAuthor(); ?>  
 				</p>
 					
 				<p>
@@ -52,8 +58,8 @@ if (isset($_SESSION['pseudo'])) {
 				</p>
 			</div>
 			<div>
-				<a href="index.php?p=deletePost&amp;id=<?= $post->getId() ?>"><input class="buttonAdminPost deletePost" value="Supprimer l'article" type="button" /></a>
-				<a href="index.php?p=editPost&amp;id=<?= $post->getId() ?>"><input class="buttonAdminPost editPost" value="Modifier l'article" type="submit" /></a>
+				<a href="index.php?p=deletePost&amp;id=<?= $post->getId() ?>"><input class="buttonAdminPost deletePost" value="Supprimer le chapitre" type="button" /></a>
+				<a href="index.php?p=editPost&amp;id=<?= $post->getId() ?>"><input class="buttonAdminPost editPost" value="Modifier le chapitre" type="submit" /></a>
 			</div>
 		</section>
 
