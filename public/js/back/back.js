@@ -11,7 +11,7 @@ var back = {
 
         $('.deletePost').click(function(e){
 
-            var result = confirm("Etes vous sûr de vouloir supprimer cet article ?");
+            var result = confirm("Etes vous sûr de vouloir supprimer ce chapitre ?");
         
             if (!result) {
                 e.preventDefault();
